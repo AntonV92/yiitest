@@ -43,16 +43,22 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
+        
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '/' => 'orders/default/index'
             ],
         ],
-        */
+        
     ],
     'params' => $params,
+    'modules' => [
+        'orders' => [
+            'class' => 'app\modules\orders\Module',
+        ],
+    ],
 ];
 
 if (YII_ENV_DEV) {
