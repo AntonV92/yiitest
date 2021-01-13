@@ -9,6 +9,7 @@ class Module extends \yii\base\Module
 {
     /**
      * {@inheritdoc}
+
      */
     public $controllerNamespace = 'app\modules\orders\controllers';
 
@@ -18,6 +19,8 @@ class Module extends \yii\base\Module
     public function init()
     {
         parent::init();
+
+        $this->layout = false;
 
         // custom initialization code goes here
     }
