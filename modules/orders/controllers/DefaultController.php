@@ -29,7 +29,7 @@ class DefaultController extends Controller
             $arr[$value['name']] = (new Query())->select('COUNT(*) AS val')->from('orders')->join('JOIN', 'services', 'orders.service_id = services.id')->where("services.id={$value['id']}")->all()[0]['val'];
         }
         
-        
+        arsort($arr);
         
         $countQuery = clone $query;
         $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 100 ]);
@@ -68,7 +68,15 @@ class DefaultController extends Controller
             break;
         }
         $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where(['orders.status' => $data])->orderBy(['orders.id' => SORT_DESC ]);
-        $services = (new Query())->select(['services.name'])->from('services')->all();
+        $services = (new Query())->select(['services.name','services.id'])->from('services')->all();
+
+        $arr = [];
+
+        foreach ($services as $key => $value) {
+            $arr[$value['name']] = (new Query())->select('COUNT(*) AS val')->from('orders')->join('JOIN', 'services', 'orders.service_id = services.id')->where("services.id={$value['id']}")->all()[0]['val'];
+        }
+
+        arsort($arr);
 
         $countQuery = clone $query;
         $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 100 ]);
@@ -82,6 +90,7 @@ class DefaultController extends Controller
          'count' => $countQuery->count(),
          'class' => $class,
          'services' => $services,
+         'arr' => $arr,
      ]);
     }
 

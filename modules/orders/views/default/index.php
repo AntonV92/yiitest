@@ -25,9 +25,6 @@ use yii\widgets\LinkPager;
 <![endif]-->
 </head>
 <body>
-    <?php
-        print_r($arr);
-     ?>
   <nav class="navbar navbar-fixed-top navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -84,13 +81,11 @@ use yii\widgets\LinkPager;
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li class="active"><a href="">All (894931)</a></li>
+                <li class="active"><a href="">All <?php echo array_sum($arr); ?> </a></li>
                 <?php
-                    $i = 0;
-                  foreach ($services as $v) {
+                  foreach ($arr as $key => $v) {
                     
-                    echo "<li><a href=\"\"><span class=\"label-id\"> {$arr[$v['name']]} </span> {$v['name']} </a></li>";
-                    $i+=1;
+                    echo "<li><a href=\"\"><span class=\"label-id\"> $v </span> $key </a></li>";
                   }
                  ?>
               </ul>
