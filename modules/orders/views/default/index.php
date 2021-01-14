@@ -99,9 +99,15 @@ use yii\widgets\LinkPager;
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li class="active"><a href="">All</a></li>
-                <li><a href="">Manual</a></li>
-                <li><a href="">Auto</a></li>
+                <li class=""><a href="/">All</a></li>
+                <?php
+                    if (isset($data)) {
+                   echo "<li><a href=\"/link{$data}0\">Manual </a></li>
+                             <li><a href=\"/link{$data}1\">Auto</a></li>";
+                    }
+                   
+                 ?>
+
               </ul>
             </div>
           </th>
