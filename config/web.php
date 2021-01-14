@@ -48,7 +48,8 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '/' => 'orders/default/index'
+                '/' => 'orders/default/index',
+                '/status<data:>' => 'orders/default/status',
             ],
         ],
         

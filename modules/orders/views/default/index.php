@@ -25,6 +25,9 @@ use yii\widgets\LinkPager;
 <![endif]-->
 </head>
 <body>
+    <?php
+        print_r($arr);
+     ?>
   <nav class="navbar navbar-fixed-top navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -44,12 +47,12 @@ use yii\widgets\LinkPager;
   </nav>
   <div class="container-fluid">
     <ul class="nav nav-tabs p-b">
-      <li class="active"><a href="#">All orders</a></li>
-      <li><a href="#">Pending</a></li>
-      <li><a href="#">In progress</a></li>
-      <li><a href="#">Completed</a></li>
-      <li><a href="#">Canceled</a></li>
-      <li><a href="#">Error</a></li>
+      <li class=<?php if($class == 'all'){ echo "active"; } ;?>><a href="/">All orders</a></li>
+      <li class=<?php if($class == 'pending'){ echo "active"; } ;?>><a href="/status0">Pending</a></li>
+      <li class=<?php if($class == 'inprogress'){ echo "active"; } ;?>><a href="/status1">In progress</a></li>
+      <li class=<?php if($class == 'completed'){ echo "active"; } ;?>><a href="/status2">Completed</a></li>
+      <li class=<?php if($class == 'canceled'){ echo "active"; } ;?>><a href="/status3">Canceled</a></li>
+      <li class=<?php if($class == 'error'){ echo "active"; } ;?>><a href="/status4">Error</a></li>
       <li class="pull-right custom-search">
         <form class="form-inline" action="/admin/orders" method="get">
           <div class="input-group">
@@ -82,13 +85,14 @@ use yii\widgets\LinkPager;
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                 <li class="active"><a href="">All (894931)</a></li>
-                <li><a href=""><span class="label-id">214</span>  Real Views</a></li>
-                <li><a href=""><span class="label-id">215</span> Page Likes</a></li>
-                <li><a href=""><span class="label-id">10</span> Page Likes</a></li>
-                <li><a href=""><span class="label-id">217</span> Page Likes</a></li>
-                <li><a href=""><span class="label-id">221</span> Followers</a></li>
-                <li><a href=""><span class="label-id">224</span> Groups Join</a></li>
-                <li><a href=""><span class="label-id">230</span> Website Likes</a></li>
+                <?php
+                    $i = 0;
+                  foreach ($services as $v) {
+                    
+                    echo "<li><a href=\"\"><span class=\"label-id\"> {$arr[$v['name']]} </span> {$v['name']} </a></li>";
+                    $i+=1;
+                  }
+                 ?>
               </ul>
             </div>
           </th>
@@ -112,17 +116,36 @@ use yii\widgets\LinkPager;
       <tbody>
         <?php 
         foreach ($models as $model) {
+          switch ($model['status']) {
+            case 0:
+              $status = 'Pending';
+              break;
+            case 1:
+              $status = 'In Progress';
+              break;
+            case 2:
+              $status = 'Completed';
+              break;
+            case 3:
+              $status = 'Canceled';
+              break;
+            case 4:
+              $status = 'Error';
+              break;
+          }
+
+          $model['mode'] == 0 ? $mode = 'Manual' : $mode = 'Auto';
           echo "<tr>" . 
           "<td> {$model['id']} </td>
           <td> {$model['first_name']} </td>
           <td class=\"link\"> {$model['link']} </td>
           <td> {$model['quantity']} </td>
           <td class=\"service\">
-          <span class=\"label-id\">213</span> {$model['name']}
+          <span class=\"label-id\"> {$arr[$model['name']]} </span> {$model['name']}
           </td>
-          <td>Pending</td>
-          <td>Manual</td>
-          <td><span class=\"nowrap\">2016-01-27</span><span class=\"nowrap\">15:13:52</span></td>" .
+          <td> {$status} </td>
+          <td> {$mode} </td>
+          <td><span class=\"nowrap\">" . date('d-m-Y', $model['created_at']) . "</span><span class=\"nowrap\">" . date('H:i:s', $model['created_at']) . "</span></td>" .
           "</tr>";
         }
         ?>
@@ -137,6 +160,8 @@ use yii\widgets\LinkPager;
  echo LinkPager::widget([
   'pagination' => $pages,
 ]);
+
+ echo $count;
 ?>
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
