@@ -105,7 +105,10 @@ use yii\widgets\LinkPager;
                    echo "<li><a href=\"/link{$data}0\">Manual </a></li>
                              <li><a href=\"/link{$data}1\">Auto</a></li>";
                     }
-                   
+                   else{
+                    echo "<li><a href=\"/all50\">Manual </a></li>
+                             <li><a href=\"/all51\">Auto</a></li>";
+                   }
                  ?>
 
               </ul>
