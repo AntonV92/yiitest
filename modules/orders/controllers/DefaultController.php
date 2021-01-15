@@ -16,7 +16,6 @@ class DefaultController extends Controller
      * Renders the index view for the module
      * @return string
      */
-    
 
     public function actionIndex()
     {	
@@ -29,6 +28,7 @@ class DefaultController extends Controller
          'models' => $getpag['models'],
          'pages' => $getpag['pages'],
          'count' => $getpag['count'],
+         'status' => '5',
          'class' => 'all',
          'services' => self::getService(),
          'arr' => self::getArray(),
@@ -51,7 +51,7 @@ class DefaultController extends Controller
          'class' => self::getClass($data),
          'services' => self::getService(),
          'arr' => self::getArray(),
-         'data' => $data,
+         'status' => $data[0],
      ]);
     }
 
@@ -81,13 +81,40 @@ class DefaultController extends Controller
          'class' => self::getClass($data),
          'services' => self::getService(),
          'arr' => self::getArray(),
-         'data' => $data[0],
+         'status' => $data[0],
         ]);
     }
 
-    public function actionService($data = false)
-    {
 
+
+    public function actionService($data = false, $name)
+    {
+        $status = $data[0];
+        $name = $name;
+
+
+        if($status < 5){
+            $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where(['orders.status' => $status, 'services.name' => $name])->orderBy(['orders.id' => SORT_DESC ]);
+
+        $getpag = self::getPagination($query);
+        
+        } 
+       else{
+           $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where(['services.name' => $name])->orderBy(['orders.id' => SORT_DESC ]);
+
+        $getpag = self::getPagination($query);
+        
+        
+        }
+        return $this->render('index', [
+         'models' => $getpag['models'],
+         'pages' => $getpag['pages'],
+         'count' => $getpag['count'],
+         'class' => self::getClass($data),
+         'services' => self::getService(),
+         'arr' => self::getArray(),
+         'status' => $data[0],
+        ]);
     }
 
 

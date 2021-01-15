@@ -85,7 +85,7 @@ use yii\widgets\LinkPager;
                 <?php
                   foreach ($arr as $key => $v) {
                     
-                    echo "<li><a href=\"\"><span class=\"label-id\"> $v </span> $key </a></li>";
+                    echo "<li><a href=\"/service{$status}{$key}\"><span class=\"label-id\"> $v </span> $key </a></li>";
                   }
                  ?>
               </ul>
@@ -101,14 +101,8 @@ use yii\widgets\LinkPager;
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                 <li class=""><a href="/">All</a></li>
                 <?php
-                    if (isset($data)) {
-                   echo "<li><a href=\"/link{$data}0\">Manual </a></li>
-                             <li><a href=\"/link{$data}1\">Auto</a></li>";
-                    }
-                   else{
-                    echo "<li><a href=\"/all50\">Manual </a></li>
-                             <li><a href=\"/all51\">Auto</a></li>";
-                   }
+                   echo "<li><a href=\"/link{$status}0\">Manual </a></li>
+                             <li><a href=\"/link{$status}1\">Auto</a></li>";
                  ?>
 
               </ul>
