@@ -16,6 +16,10 @@ class DefaultController extends Controller
      * Renders the index view for the module
      * @return string
      */
+    public function actionTest($data, $name, $email)
+    {
+        return $email;
+    }
 
     public function actionIndex()
     {	
@@ -59,33 +63,34 @@ class DefaultController extends Controller
     {
         $status = $data;
 
+        $condition = [];
 
-        if ($status == 5 && $mode == 7) {
-           $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->orderBy(['orders.id' => SORT_DESC ]);
+        if ($status < 5) {
+            $condition['orders.status'] = $status;
+        }
+
+        if ($name != 'none') {
+            $condition['services.name'] = $name;
+        }
+        if ($mode != 7) {
+            $condition['orders.mode'] = $mode;
+        }
+
+
+        if (!empty($search)) {
+           if ($search['search-type'] == 1) {
+            $condition['orders.id'] = $search['search'];
+             }elseif ($search['search-type'] == 2) {
+            $condition['orders.link'] = $search['search'];
+            }else{
+            $condition['users.first_name'] = $search['search-type'];
+            }
+        }
         
-            $getpag = self::getPagination($query);
-        }
 
-        if ($status == 5) {
-            $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where(['orders.mode' => $mode])->orderBy(['orders.id' => SORT_DESC ]);
-            $getpag = self::getPagination($query);
-        }
+        $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where($condition)->orderBy(['orders.id' => SORT_DESC ]);
 
-        if ($status < 5 && $mode == 7) {
-            $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where(['orders.status' => $status])->orderBy(['orders.id' => SORT_DESC ]);
-            $getpag = self::getPagination($query);
-        }
-
-        if ($status < 5 && $mode != 7) {
-             $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where(['orders.status' => $status, 'orders.mode' => $mode])->orderBy(['orders.id' => SORT_DESC ]);
-            $getpag = self::getPagination($query);
-        }
-
-
-        
-
-
-
+        $getpag = self::getPagination($query);
         
         return $this->render('index', [
          'models' => $getpag['models'],
@@ -96,14 +101,16 @@ class DefaultController extends Controller
          'arr' => self::getArray(),
          'status' => $data,
          'mode' => $mode,
+         'name' => $name,
         ]);
+       
     }
 
 
 
     public function actionService($data = false, $name)
     {
-        $status = $data[0];
+        $status = $data;
         $name = $name;
 
 
@@ -134,7 +141,9 @@ class DefaultController extends Controller
 
 
     public function actionSearch()
-    {
+    {   
+        $search = [];
+
         if ($_GET['search-type'] == 1) {
             $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where(['orders.id' => $_GET['search']])->orderBy(['orders.id' => SORT_DESC ]);
         
@@ -152,6 +161,10 @@ class DefaultController extends Controller
         
             $getpag = self::getPagination($query);
         }
+
+        $search['search-type'] = $_GET['search-type'];
+        $search['search'] = $_GET['search'];
+
         return $this->render('index', [
          'models' => $getpag['models'],
          'pages' => $getpag['pages'],
@@ -160,7 +173,7 @@ class DefaultController extends Controller
          'class' => 'all',
          'services' => self::getService(),
          'arr' => self::getArray(),
-
+         'search' => $search,
         
      ]);
     }

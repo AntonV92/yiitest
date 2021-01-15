@@ -1,5 +1,6 @@
 <?php 
 use yii\widgets\LinkPager;
+use yii\helpers\Url;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +28,11 @@ use yii\widgets\LinkPager;
 <body>
   <?php if (!isset($name)) {
     $name = 'none';
-  } ?>
+  }
+  if (!isset($search)) {
+    $search = [];
+  }
+   ?>
   <nav class="navbar navbar-fixed-top navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -88,7 +93,7 @@ use yii\widgets\LinkPager;
                 <?php
                   foreach ($arr as $key => $v) {
                     
-                    echo "<li><a href=\"/service{$status}{$key}\"><span class=\"label-id\"> $v </span> $key </a></li>";
+                    echo "<li><a href=" . Url::to(['service', 'data' => $status, 'name' => $key ]) . "><span class=\"label-id\"> $v </span> $key </a></li>";
                   }
                  ?>
               </ul>
@@ -102,12 +107,11 @@ use yii\widgets\LinkPager;
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <?php
+                  <?php
              echo "<li><a href=\"/link{$status}{$name}7\">All</a></li>
                    <li><a href=\"/link{$status}{$name}0\">Manual </a></li>
                    <li><a href=\"/link{$status}{$name}1\">Auto</a></li>";
                  ?>
-
               </ul>
             </div>
           </th>
