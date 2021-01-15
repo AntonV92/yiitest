@@ -55,25 +55,38 @@ class DefaultController extends Controller
      ]);
     }
 
-    public function actionMode($data = false)
+    public function actionMode($data, $name, $mode)
     {
-        $status = $data[0];
-        $mode = $data[1];
+        $status = $data;
 
 
-        if($status < 5){
-            $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where(['orders.status' => $status, 'orders.mode' => $mode])->orderBy(['orders.id' => SORT_DESC ]);
-
-        $getpag = self::getPagination($query);
+        if ($status == 5 && $mode == 7) {
+           $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->orderBy(['orders.id' => SORT_DESC ]);
         
-        } 
-       else{
-           $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where(['orders.mode' => $mode])->orderBy(['orders.id' => SORT_DESC ]);
-
-        $getpag = self::getPagination($query);
-        
-        
+            $getpag = self::getPagination($query);
         }
+
+        if ($status == 5) {
+            $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where(['orders.mode' => $mode])->orderBy(['orders.id' => SORT_DESC ]);
+            $getpag = self::getPagination($query);
+        }
+
+        if ($status < 5 && $mode == 7) {
+            $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where(['orders.status' => $status])->orderBy(['orders.id' => SORT_DESC ]);
+            $getpag = self::getPagination($query);
+        }
+
+        if ($status < 5 && $mode != 7) {
+             $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where(['orders.status' => $status, 'orders.mode' => $mode])->orderBy(['orders.id' => SORT_DESC ]);
+            $getpag = self::getPagination($query);
+        }
+
+
+        
+
+
+
+        
         return $this->render('index', [
          'models' => $getpag['models'],
          'pages' => $getpag['pages'],
@@ -81,7 +94,8 @@ class DefaultController extends Controller
          'class' => self::getClass($data),
          'services' => self::getService(),
          'arr' => self::getArray(),
-         'status' => $data[0],
+         'status' => $data,
+         'mode' => $mode,
         ]);
     }
 
@@ -114,9 +128,42 @@ class DefaultController extends Controller
          'services' => self::getService(),
          'arr' => self::getArray(),
          'status' => $data[0],
+         'name' => $name,
         ]);
     }
 
+
+    public function actionSearch()
+    {
+        if ($_GET['search-type'] == 1) {
+            $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where(['orders.id' => $_GET['search']])->orderBy(['orders.id' => SORT_DESC ]);
+        
+            $getpag = self::getPagination($query);
+        }
+
+        if ($_GET['search-type'] == 2) {
+            $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where(['orders.link' => $_GET['search']])->orderBy(['orders.id' => SORT_DESC ]);
+        
+            $getpag = self::getPagination($query);
+        }
+
+        if ($_GET['search-type'] == 3) {
+            $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where(['users.first_name' => $_GET['search']])->orderBy(['orders.id' => SORT_DESC ]);
+        
+            $getpag = self::getPagination($query);
+        }
+        return $this->render('index', [
+         'models' => $getpag['models'],
+         'pages' => $getpag['pages'],
+         'count' => $getpag['count'],
+         'status' => '5',
+         'class' => 'all',
+         'services' => self::getService(),
+         'arr' => self::getArray(),
+
+        
+     ]);
+    }
 
     private function getPagination($query)
     {

@@ -25,6 +25,9 @@ use yii\widgets\LinkPager;
 <![endif]-->
 </head>
 <body>
+  <?php if (!isset($name)) {
+    $name = 'none';
+  } ?>
   <nav class="navbar navbar-fixed-top navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -51,7 +54,7 @@ use yii\widgets\LinkPager;
       <li class=<?php if($class == 'canceled'){ echo "active"; } ;?>><a href="/status3">Canceled</a></li>
       <li class=<?php if($class == 'error'){ echo "active"; } ;?>><a href="/status4">Error</a></li>
       <li class="pull-right custom-search">
-        <form class="form-inline" action="/admin/orders" method="get">
+        <form class="form-inline" action="/search" method="get">
           <div class="input-group">
             <input type="text" name="search" class="form-control" value="" placeholder="Search orders">
             <span class="input-group-btn search-select-wrap">
@@ -99,10 +102,10 @@ use yii\widgets\LinkPager;
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                <li class=""><a href="/">All</a></li>
                 <?php
-                   echo "<li><a href=\"/link{$status}0\">Manual </a></li>
-                             <li><a href=\"/link{$status}1\">Auto</a></li>";
+             echo "<li><a href=\"/link{$status}{$name}7\">All</a></li>
+                   <li><a href=\"/link{$status}{$name}0\">Manual </a></li>
+                   <li><a href=\"/link{$status}{$name}1\">Auto</a></li>";
                  ?>
 
               </ul>

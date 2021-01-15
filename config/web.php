@@ -50,9 +50,9 @@ $config = [
             'rules' => [
                 '/' => 'orders/default/index',
                 '/status<data:>' => 'orders/default/status',
-                '/link<data:>' => 'orders/default/mode',
-                '/all<data:>' => 'orders/default/mode',
-                '/service<data:\d+><name:\D+>' => 'orders/default/service'
+                '/link<data:\d+><name:\D+><mode:\d+>' => 'orders/default/mode',
+                '/service<data:\d+><name:\D+>' => 'orders/default/service',
+                '/search' => 'orders/default/search'
             ],
         ],
         
