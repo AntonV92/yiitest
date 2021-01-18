@@ -1,0 +1,32 @@
+<?php 
+
+return [
+	'orders.status.pending' => 'Pending',
+	'orders.status.inprogress' => 'In progress',
+	'orders.status.completed' => 'Completed',
+	'orders.status.canceled' => 'Canceled',
+	'orders.status.error' => 'Error',
+	'orders.status' => '*',
+	'services.name' => '*',
+	'services.name.likes' => 'Likes',
+	'services.name.followers' => 'Followers',
+	'services.name.views' => 'Views',
+	'services.name.tweets' => 'Tweets',
+	'services.name.retweets' => 'Retweets',
+	'services.name.comments' => 'Comments',
+	'services.name.custom_comments' => 'Custom comments',
+	'services.name.page_likes' => 'Page Likes',
+	'services.name.post_likes' => 'Post Likes',
+	'services.name.friends' => 'Friends',
+	'services.name.seo' => 'SEO',
+	'services.name.mentions' => 'Mensions',
+	'services.name.mentions_with_hashtags' => 'Mensions with hastags',
+	'services.name.mentions_custom_list' => 'Mensions Custom List',
+	'services.name.mentions_hashtag' => 'Mensions Hashtag',
+	'services.name.mentions_user_followers' => 'Mensions User Followers',
+	'services.name.mentions_media_likers' => 'Mensions Media Likers',
+	'orders.mode' => '*',
+	'orders.mode.manual' => 'Manual',
+	'orders.mode.auto' => 'Auto',
+
+	];
