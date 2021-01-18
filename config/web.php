@@ -5,6 +5,7 @@ $db = require __DIR__ . '/db.php';
 
 $config = [
     'id' => 'basic',
+    'language' => 'en-US',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -16,6 +17,19 @@ $config = [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'FLSZAjy0xHkBUzk3XfQ3dEiQo9puEjmp',
         ],
+        'i18n' => [
+        'translations' => [
+            'app*' => [
+                'class' => 'yii\i18n\PhpMessageSource',
+                'basePath' => '@app/messages',
+                'sourceLanguage' => 'en-US',
+                'fileMap' => [
+                    'app'       => 'app.php',
+                    'app/error' => 'error.php',
+                ],
+            ],
+        ],
+    ],
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
@@ -50,10 +64,10 @@ $config = [
             'rules' => [
                 '/' => 'orders/default/index',
                 '/status<data:>' => 'orders/default/status',
-                '/link<data:\d+><name:\D+><mode:\d+>' => 'orders/default/mode',
+                '/mode<data:>' => 'orders/default/mode',
                 '/service<data:>' => 'orders/default/service',
                 '/search' => 'orders/default/search',
-                '/test<data:>' => 'orders/default/test' 
+                '/test' => 'orders/default/test' 
             ],
         ],
         

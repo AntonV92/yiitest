@@ -28,11 +28,17 @@ use yii\helpers\Url;
 <body>
   <?php if (!isset($name)) {
     $name = 'none';
+
   }
   if (!isset($search)) {
     $search = [];
   }
+
+  if (!isset($mode)) {
+    $mode = 7;
+  }
    ?>
+   <a href="/test">Link</a>
   <nav class="navbar navbar-fixed-top navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -53,11 +59,11 @@ use yii\helpers\Url;
   <div class="container-fluid">
     <ul class="nav nav-tabs p-b">
       <li class=<?php if($class == 'all'){ echo "active"; } ;?>><a href="/">All orders</a></li>
-      <li class=<?php if($class == 'pending'){ echo "active"; } ;?>><a href="/status0">Pending</a></li>
-      <li class=<?php if($class == 'inprogress'){ echo "active"; } ;?>><a href="/status1">In progress</a></li>
-      <li class=<?php if($class == 'completed'){ echo "active"; } ;?>><a href="/status2">Completed</a></li>
-      <li class=<?php if($class == 'canceled'){ echo "active"; } ;?>><a href="/status3">Canceled</a></li>
-      <li class=<?php if($class == 'error'){ echo "active"; } ;?>><a href="/status4">Error</a></li>
+      <li class=<?php if($class == 'pending'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 0]); ?>">Pending</a></li>
+      <li class=<?php if($class == 'inprogress'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 1]); ?>">In progress</a></li>
+      <li class=<?php if($class == 'completed'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 2]); ?>">Completed</a></li>
+      <li class=<?php if($class == 'canceled'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 3]); ?>">Canceled</a></li>
+      <li class=<?php if($class == 'error'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 4]); ?>">Error</a></li>
       <li class="pull-right custom-search">
         <form class="form-inline" action="/search" method="get">
           <div class="input-group">
@@ -93,7 +99,7 @@ use yii\helpers\Url;
                 <?php
                   foreach ($arr as $key => $v) {
                     
-                    echo "<li><a href=" . Url::to(['service', 'data' => $status, 'name' => $key ]) . "><span class=\"label-id\"> $v </span> $key </a></li>";
+                    echo "<li><a href=" . Url::to(['service', 'data' => $status, 'name' => $key, 'mode' => $mode ]) . "><span class=\"label-id\"> $v </span> $key </a></li>";
                   }
                  ?>
               </ul>
@@ -107,11 +113,9 @@ use yii\helpers\Url;
                 <span class="caret"></span>
               </button>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                  <?php
-             echo "<li><a href=\"/link{$status}{$name}7\">All</a></li>
-                   <li><a href=\"/link{$status}{$name}0\">Manual </a></li>
-                   <li><a href=\"/link{$status}{$name}1\">Auto</a></li>";
-                 ?>
+                <li><a href="<?php echo Url::to(['mode', 'data' => $status, 'name' => $name, 'mode' => 7]); ?>">All</a></li>
+                <li><a href="<?php echo Url::to(['mode', 'data' => $status, 'name' => $name, 'mode' => 0]); ?>">Manual</a></li>
+                <li><a href="<?php echo Url::to(['mode', 'data' => $status, 'name' => $name, 'mode' => 1]); ?>">Auto</a></li>
               </ul>
             </div>
           </th>
