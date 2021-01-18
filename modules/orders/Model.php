@@ -133,6 +133,11 @@ class Model
 
         $search['search-type'] = $data['search-type'];
         $search['search'] = $data['search'];
+        $getpag['search'] = $search;
+        $getpag['class'] = 'all';
+        $getpag['status'] = 5;
+
+        return $getpag;
 	}
 
 

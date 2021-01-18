@@ -38,7 +38,7 @@ use yii\helpers\Url;
     $mode = 7;
   }
    ?>
-   <a href="/test">Link</a>
+
   <nav class="navbar navbar-fixed-top navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
