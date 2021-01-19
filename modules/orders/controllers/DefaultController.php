@@ -14,8 +14,6 @@ class DefaultController extends Controller
      * Renders the index view for the module
      * @return string
      */
-
-
     public function actionIndex()
     {	
  
@@ -40,8 +38,6 @@ class DefaultController extends Controller
        
     }
 
-
-
     public function actionService($data = false, $name, $mode)
     {
 
@@ -50,7 +46,6 @@ class DefaultController extends Controller
         return $this->render('index', $vars);
     }
 
-
     public function actionSearch()
     {   
 
@@ -58,6 +53,5 @@ class DefaultController extends Controller
 
         return $this->render('index', $vars);
     }
-
 
 }

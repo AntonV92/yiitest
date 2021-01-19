@@ -9,9 +9,7 @@ use yii\data\Pagination;
  * 
  */
 class Model
-{
-
-
+{	
 	public function index()
 	{
 		$query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->orderBy(['orders.id' => SORT_DESC ]);
@@ -55,9 +53,9 @@ class Model
 		if (!empty($search)) {
 			if ($search['search-type'] == 1) {
 				$condition['orders.id'] = $search['search'];
-			}elseif ($search['search-type'] == 2) {
+			} elseif ($search['search-type'] == 2) {
 				$condition['orders.link'] = $search['search'];
-			}else{
+			} else {
 				$condition['users.first_name'] = $search['search-type'];
 			}
 		}
@@ -84,20 +82,19 @@ class Model
 		if ($mode != 7) {
 			$condition['orders.mode'] = $mode;
 		}
-		if($status < 5){
+		if($status < 5) {
 			$condition['orders.status'] = $status;
 
 			$query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where($condition)->orderBy(['orders.id' => SORT_DESC ]);
 
 			$getpag = self::getPagination($query);
 
-		} 
-		else{
+		} else {
 			$query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where($condition)->orderBy(['orders.id' => SORT_DESC ]);
 
 			$getpag = self::getPagination($query);
-
 		}
+
 		$getpag['status'] = $data;
 		$getpag['name'] = $name;
 		$getpag['mode'] = $mode;
@@ -181,25 +178,26 @@ class Model
 	{
 		switch ($arg[0]) {
 			case 0:
-			$class = 'pending';
-			break;
+				$class = 'pending';
+				break;
 			case 1:
-			$class = 'inprogress';
-			break;
+				$class = 'inprogress';
+				break;
 			case 2:
-			$class = 'completed';
-			break;
+				$class = 'completed';
+				break;
 			case 3:
-			$class = 'canceled';
-			break;
+				$class = 'canceled';
+				break;
 			case 4:
-			$class = 'error';
-			break;
+				$class = 'error';
+				break;
 			case 5:
-			$class = 'all';
-			break;
+				$class = 'all';
+				break;
 		}
 
 		return $class;
 	}
+
 }
