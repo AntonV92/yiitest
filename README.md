@@ -17,11 +17,14 @@ db:
 5. В конфиге проекта config/db.php указать host:имя контейнера с mysql // 'dsn' => 'mysql:host=container_name;dbname=db'
 6. В консоли контейнера с приложением создать файлы миграций для импорта базы данных. Для каждого .sql файла создаем по файлу с помощью команды yii migrate/create file_name;
 7. В файлах миграции указать имена файлов для миграции базы в метод:
+```
 public function safeUp()
     {   
         $sql = file_get_contents('./migrations/test_db_structure.sql');
 
         $this->execute($sql);
     }
-    
+   ```
+   
+   
 8. Выполнить миграцию с помощью команды yii migrate
