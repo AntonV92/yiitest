@@ -36,7 +36,6 @@ if (!isset($mode)) {
 <![endif]-->
 </head>
 <body>
-
   <nav class="navbar navbar-fixed-top navbar-default">
     <div class="container-fluid">
       <div class="navbar-header">
@@ -122,6 +121,7 @@ if (!isset($mode)) {
 </thead>
 <tbody>
     <?php 
+    
     foreach ($models as $model) {
         switch ($model['status']) {
             case 0:
