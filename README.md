@@ -15,4 +15,6 @@ db:
 3. Развернуть docker командой  docker-copmose up
 4. Установить приложение в нужную папку
 5. В конфиге проекта config/db.php указать host:имя контейнера с mysql // 'dsn' => 'mysql:host=container_name;dbname=db'
+
 6. Выполнить миграцию с помощью команды yii migrate
+
