@@ -7,7 +7,8 @@ use yii\data\Pagination;
 use yii\base\Model;
 
 /**
- *
+ * Class BaseModel
+ * @package app\modules\orders\models
  */
 class BaseModel extends Model
 {

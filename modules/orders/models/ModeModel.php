@@ -8,7 +8,8 @@ use yii\base\Model;
 use app\modules\orders\models\BaseModel;
 
 /**
- *
+ * Class ModeModel
+ * @package app\modules\orders\models
  */
 class ModeModel extends Model
 {

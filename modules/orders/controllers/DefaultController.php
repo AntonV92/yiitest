@@ -10,7 +10,8 @@ use app\modules\orders\models\ServiceModel;
 use app\modules\orders\models\SearchModel;
 
 /**
- * Default controller for the `orders` module
+ * Class DefaultController
+ * @package app\modules\orders\controllers
  */
 class DefaultController extends Controller
 {
