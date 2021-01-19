@@ -5,13 +5,13 @@ namespace app\modules\orders\models;
 use yii\db\Query;
 use yii\data\Pagination;
 use yii\base\Model;
-use app\modules\orders\models\BaseModel;
+use app\modules\orders\models\Base;
 
 /**
  * Class ModeModel
  * @package app\modules\orders\models
  */
-class ModeModel extends Model
+class Mode extends Model
 {
     /**
      * @param $data
@@ -50,11 +50,11 @@ class ModeModel extends Model
 
         $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where($condition)->orderBy(['orders.id' => SORT_DESC]);
 
-        $getpag = (new BaseModel())->getPagination($query);
+        $getpag = (new Base())->getPagination($query);
         $getpag['status'] = $data;
         $getpag['name'] = $name;
         $getpag['mode'] = $mode;
-        $getpag['class'] = (new BaseModel())->getClass($data);
+        $getpag['class'] = (new Base())->getClass($data);
 
         return $getpag;
     }

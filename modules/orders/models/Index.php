@@ -5,13 +5,13 @@ namespace app\modules\orders\models;
 use yii\db\Query;
 use yii\data\Pagination;
 use yii\base\Model;
-use app\modules\orders\models\BaseModel;
+use app\modules\orders\models\Base;
 
 /**
  * Class IndexModel
  * @package app\modules\orders\models
  */
-class IndexModel extends Model
+class Index extends Model
 {
 
     /**
@@ -21,7 +21,7 @@ class IndexModel extends Model
     {
         $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->orderBy(['orders.id' => SORT_DESC]);
 
-        $getpag = (new BaseModel())->getPagination($query);
+        $getpag = (new Base())->getPagination($query);
         $getpag['status'] = 5;
         $getpag['class'] = 'all';
 

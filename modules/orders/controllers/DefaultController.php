@@ -3,11 +3,11 @@
 namespace app\modules\orders\controllers;
 
 use yii\web\Controller;
-use app\modules\orders\models\IndexModel;
-use app\modules\orders\models\StatusModel;
-use app\modules\orders\models\ModeModel;
-use app\modules\orders\models\ServiceModel;
-use app\modules\orders\models\SearchModel;
+use app\modules\orders\models\Index;
+use app\modules\orders\models\Status;
+use app\modules\orders\models\Mode;
+use app\modules\orders\models\Service;
+use app\modules\orders\models\Search;
 
 /**
  * Class DefaultController
@@ -19,10 +19,12 @@ class DefaultController extends Controller
      * Renders the index view for the module
      * @return string
      */
+//public $layout = 'main';
+
     public function actionIndex()
     {
 
-        $vars = (new IndexModel())->index();
+        $vars = (new Index())->index();
 
         return $this->render('index', $vars);
     }
@@ -34,7 +36,7 @@ class DefaultController extends Controller
     public function actionStatus($data)
     {
 
-        $vars = (new StatusModel())->status($data);
+        $vars = (new Status())->status($data);
 
         return $this->render('index', $vars);
     }
@@ -47,7 +49,7 @@ class DefaultController extends Controller
      */
     public function actionMode($data, $name, $mode)
     {
-        $vars = (new ModeModel())->mode($data, $name, $mode);
+        $vars = (new Mode())->mode($data, $name, $mode);
 
         return $this->render('index', $vars);
 
@@ -62,7 +64,7 @@ class DefaultController extends Controller
     public function actionService($data = false, $name, $mode)
     {
 
-        $vars = (new ServiceModel())->service($data, $name, $mode);
+        $vars = (new Service())->service($data, $name, $mode);
 
         return $this->render('index', $vars);
     }
@@ -73,7 +75,7 @@ class DefaultController extends Controller
     public function actionSearch()
     {
 
-        $vars = (new SearchModel())->search($_GET);
+        $vars = (new Search())->search($_GET);
 
         return $this->render('index', $vars);
     }
