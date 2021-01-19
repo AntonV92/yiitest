@@ -26,6 +26,10 @@ class DefaultController extends Controller
         return $this->render('index', $vars);
     }
 
+    /**
+     * @param $data
+     * @return string
+     */
     public function actionStatus($data)
     {
 
@@ -34,6 +38,12 @@ class DefaultController extends Controller
         return $this->render('index', $vars);
     }
 
+    /**
+     * @param $data
+     * @param $name
+     * @param $mode
+     * @return string
+     */
     public function actionMode($data, $name, $mode)
     {
         $vars = (new ModeModel())->mode($data, $name, $mode);
@@ -42,6 +52,12 @@ class DefaultController extends Controller
 
     }
 
+    /**
+     * @param false $data
+     * @param $name
+     * @param $mode
+     * @return string
+     */
     public function actionService($data = false, $name, $mode)
     {
 
@@ -50,6 +66,9 @@ class DefaultController extends Controller
         return $this->render('index', $vars);
     }
 
+    /**
+     * @return string
+     */
     public function actionSearch()
     {
 

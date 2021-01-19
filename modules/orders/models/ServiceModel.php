@@ -8,11 +8,17 @@ use yii\base\Model;
 use app\modules\orders\models\BaseModel;
 
 /**
- * 
+ *
  */
 class ServiceModel extends Model
 {
-	public function service($data, $name, $mode)
+    /**
+     * @param $data
+     * @param $name
+     * @param $mode
+     * @return array
+     */
+    public function service($data, $name, $mode)
     {
         $status = $data;
 

@@ -8,11 +8,17 @@ use yii\base\Model;
 use app\modules\orders\models\BaseModel;
 
 /**
- * 
+ *
  */
 class ModeModel extends Model
 {
-	public function mode($data, $name, $mode)
+    /**
+     * @param $data
+     * @param $name
+     * @param $mode
+     * @return array
+     */
+    public function mode($data, $name, $mode)
     {
         $status = $data;
 

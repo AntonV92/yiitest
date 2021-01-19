@@ -7,11 +7,15 @@ use yii\data\Pagination;
 use yii\base\Model;
 
 /**
- * 
+ *
  */
 class BaseModel extends Model
 {
-	public function getPagination($query)
+    /**
+     * @param $query
+     * @return array
+     */
+    public function getPagination($query)
     {
         $countQuery = clone $query;
         $pages = new Pagination(['totalCount' => $countQuery->count(), 'pageSize' => 100]);
@@ -28,11 +32,17 @@ class BaseModel extends Model
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getService()
     {
         return (new Query())->select(['services.name', 'services.id'])->from('services')->all();
     }
 
+    /**
+     * @return array
+     */
     public function getArray()
     {
         $arr = [];
@@ -45,6 +55,10 @@ class BaseModel extends Model
 
     }
 
+    /**
+     * @param $arg
+     * @return string
+     */
     public function getClass($arg)
     {
         switch ($arg[0]) {

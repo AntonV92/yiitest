@@ -8,12 +8,18 @@ use yii\base\Model;
 use app\modules\orders\models\BaseModel;
 
 /**
- * 
+ *
  */
 class SearchModel extends Model
 {
-	public function search($data)
+    /**
+     * @param $data
+     * @return array
+     */
+    public function search($data)
     {
+
+
         $search = [];
 
         if ($data['search-type'] == 1) {
