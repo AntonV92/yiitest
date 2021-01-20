@@ -63,9 +63,9 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 '/' => 'orders/default/index',
-                '/status<data:>' => 'orders/default/status',
-                '/mode<data:>' => 'orders/default/mode',
-                '/service<data:>' => 'orders/default/service',
+                '/status/<data:>' => 'orders/default/status',
+                '/mode/<data:>' => 'orders/default/mode',
+                '/service/<data:>' => 'orders/default/service',
                 '/search' => 'orders/default/search',
                 '/test' => 'orders/default/test' 
             ],

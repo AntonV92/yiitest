@@ -19,12 +19,14 @@ class DefaultController extends Controller
      * Renders the index view for the module
      * @return string
      */
-//public $layout = 'main';
+    public $vars;
 
     public function actionIndex()
     {
 
         $vars = (new Index())->index();
+
+        $this->vars = $vars;
 
         return $this->render('index', $vars);
     }
@@ -38,6 +40,8 @@ class DefaultController extends Controller
 
         $vars = (new Status())->status($data);
 
+        $this->vars = $vars;
+
         return $this->render('index', $vars);
     }
 
@@ -50,6 +54,8 @@ class DefaultController extends Controller
     public function actionMode($data, $name, $mode)
     {
         $vars = (new Mode())->mode($data, $name, $mode);
+
+        $this->vars = $vars;
 
         return $this->render('index', $vars);
 
@@ -66,6 +72,8 @@ class DefaultController extends Controller
 
         $vars = (new Service())->service($data, $name, $mode);
 
+        $this->vars = $vars;
+
         return $this->render('index', $vars);
     }
 
@@ -76,6 +84,8 @@ class DefaultController extends Controller
     {
 
         $vars = (new Search())->search($_GET);
+
+        $this->vars = $vars;
 
         return $this->render('index', $vars);
     }

@@ -36,18 +36,6 @@ class Mode extends Model
             $condition['orders.mode'] = $mode;
         }
 
-
-        if (!empty($search)) {
-            if ($search['search-type'] == 1) {
-                $condition['orders.id'] = $search['search'];
-            } elseif ($search['search-type'] == 2) {
-                $condition['orders.link'] = $search['search'];
-            } else {
-                $condition['users.first_name'] = $search['search-type'];
-            }
-        }
-
-
         $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where($condition)->orderBy(['orders.id' => SORT_DESC]);
 
         $getpag = (new Base())->getPagination($query);
