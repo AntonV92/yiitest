@@ -3,6 +3,7 @@
 namespace app\modules\orders\controllers;
 
 use yii\web\Controller;
+use yii\base\DynamicModel;
 use app\modules\orders\models\Index;
 use app\modules\orders\models\Status;
 use app\modules\orders\models\Mode;
@@ -34,15 +35,22 @@ class DefaultController extends Controller
     /**
      * @param $data
      * @return string
+     * @throws \yii\base\InvalidConfigException
      */
     public function actionStatus($data)
     {
+        $model = DynamicModel::validateData(compact('data'), [
+            [['data'], 'integer', 'max' => 5],
+        ]);
+        if ($model->hasErrors()) {
+            return 'Error';
+        } else {
+            $vars = (new Status())->status($data);
 
-        $vars = (new Status())->status($data);
+            $this->vars = $vars;
 
-        $this->vars = $vars;
-
-        return $this->render('index', $vars);
+            return $this->render('index', $vars);
+        }
     }
 
     /**
@@ -50,44 +58,73 @@ class DefaultController extends Controller
      * @param $name
      * @param $mode
      * @return string
+     * @throws \yii\base\InvalidConfigException
      */
     public function actionMode($data, $name, $mode)
     {
-        $vars = (new Mode())->mode($data, $name, $mode);
+        $model = DynamicModel::validateData(compact('data', 'name', 'mode'), [
+            [['data'], 'integer', 'max' => 5],
+            [['name'], 'string', 'max' => 25],
+            [['mode'], 'integer', 'max' => 7]
+        ]);
+        if ($model->hasErrors()) {
+            return 'Error';
+        } else {
+            $vars = (new Mode())->mode($data, $name, $mode);
 
-        $this->vars = $vars;
+            $this->vars = $vars;
 
-        return $this->render('index', $vars);
-
+            return $this->render('index', $vars);
+        }
     }
 
     /**
-     * @param false $data
+     * @param $data
      * @param $name
      * @param $mode
      * @return string
+     * @throws \yii\base\InvalidConfigException
      */
-    public function actionService($data = false, $name, $mode)
+    public function actionService($data, $name, $mode)
     {
+        $model = DynamicModel::validateData(compact('data', 'name', 'mode'), [
+            [['data'], 'integer', 'max' => 5],
+            [['name'], 'string', 'max' => 25],
+            [['mode'], 'integer', 'max' => 7]
+        ]);
+        if ($model->hasErrors()) {
+            return 'Error';
+        } else {
+            $vars = (new Service())->service($data, $name, $mode);
 
-        $vars = (new Service())->service($data, $name, $mode);
+            $this->vars = $vars;
 
-        $this->vars = $vars;
-
-        return $this->render('index', $vars);
+            return $this->render('index', $vars);
+        }
     }
 
     /**
      * @return string
+     * @throws \yii\base\InvalidConfigException
      */
     public function actionSearch()
     {
+        $search = $_GET['search'];
+        $search_type = $_GET['search-type'];
 
-        $vars = (new Search())->search($_GET);
+        $model = DynamicModel::validateData(compact('search', 'search_type'), [
+            [['search_type'], 'integer', 'max' => 3],
+            [['search'], 'string', 'max' => 125],
+        ]);
+        if ($model->hasErrors()) {
+            return 'Error';
+        } else {
+            $vars = (new Search())->search($_GET);
 
-        $this->vars = $vars;
+            $this->vars = $vars;
 
-        return $this->render('index', $vars);
+            return $this->render('index', $vars);
+        }
     }
 
 }
