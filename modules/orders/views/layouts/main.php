@@ -10,17 +10,16 @@ $data = $this->context->vars;
 if (!isset($data['name'])) {
 	$data['name'] = 'none';
 }
-if (!isset($data['search'])) {
-	$search = 'none';
-	$search_type = 'none';
-} else {
-	$search = $data['search']['search'];
-	$search_type = $data['search']['search-type'];
-}
 if (!isset($data['mode'])) {
 	$data['mode'] = 7;
 }
-
+if (!isset($data['search'])) {
+	$type = 'none';
+	$search = 'none';
+} else {
+	$type = $data['search']['search-type'];
+	$search = $data['search']['search'];
+}
 /* @var $this yii\web\View */
 /* @var $content string */
 ?>
@@ -126,9 +125,9 @@ if (!isset($data['mode'])) {
         <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-        <li><a href="<?php echo Url::to(['mode', 'data' => $data['status'] , 'name' => $data['name'], 'mode' => 7 ]); ?>">All</a></li>
-        <li><a href="<?php echo Url::to(['mode', 'data' => $data['status'] , 'name' => $data['name'] , 'mode' => 0 ]); ?>">Manual</a></li>
-        <li><a href="<?php echo Url::to(['mode', 'data' => $data['status'] , 'name' => $data['name'] , 'mode' => 1 ]); ?>">Auto</a></li>
+        <li><a href="<?php echo Url::to(['mode', 'data' => $data['status'] , 'name' => $data['name'], 'mode' => 7, 'type' => $type, 'search' => $search ]); ?>">All</a></li>
+        <li><a href="<?php echo Url::to(['mode', 'data' => $data['status'] , 'name' => $data['name'] , 'mode' => 0, 'type' => $type, 'search' => $search ]); ?>">Manual</a></li>
+        <li><a href="<?php echo Url::to(['mode', 'data' => $data['status'] , 'name' => $data['name'] , 'mode' => 1, 'type' => $type, 'search' => $search ]); ?>">Auto</a></li>
     </ul>
 </div>
 </th>

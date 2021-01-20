@@ -60,7 +60,7 @@ class DefaultController extends Controller
      * @return string
      * @throws \yii\base\InvalidConfigException
      */
-    public function actionMode($data, $name, $mode)
+    public function actionMode($data, $name, $mode, $type, $search)
     {
         $model = DynamicModel::validateData(compact('data', 'name', 'mode'), [
             [['data'], 'integer', 'max' => 5],
@@ -70,7 +70,7 @@ class DefaultController extends Controller
         if ($model->hasErrors()) {
             return 'Error';
         } else {
-            $vars = (new Mode())->mode($data, $name, $mode);
+            $vars = (new Mode())->mode($data, $name, $mode, $type, $search);
 
             $this->vars = $vars;
 
