@@ -17,14 +17,28 @@ class Service extends Model
      * @param $data
      * @param $name
      * @param $mode
+     * @param $type
+     * @param $search
      * @return array
      */
-    public function service($data, $name, $mode)
+    public function service($data, $name, $mode, $type, $search)
     {
         $status = $data;
 
         $condition = [];
+        $arrsearch['search-type'] = $type;
+        $arrsearch['search'] = $search;
+
         $condition['services.name'] = $name;
+
+        if ($type != 'none') {
+            if ($type == 2) {
+                $condition['orders.link'] = $search;
+            }
+            if ($type == 3) {
+                $condition['users.first_name'] = $search;
+            }  
+        }
 
         if ($mode != 7) {
             $condition['orders.mode'] = $mode;
@@ -42,6 +56,7 @@ class Service extends Model
             $getpag = (new Base())->getPagination($query);
         }
 
+        $getpag['search'] = $arrsearch;
         $getpag['status'] = $data;
         $getpag['name'] = $name;
         $getpag['mode'] = $mode;

@@ -57,6 +57,8 @@ class DefaultController extends Controller
      * @param $data
      * @param $name
      * @param $mode
+     * @param $type
+     * @param $search
      * @return string
      * @throws \yii\base\InvalidConfigException
      */
@@ -82,10 +84,12 @@ class DefaultController extends Controller
      * @param $data
      * @param $name
      * @param $mode
+     * @param $type
+     * @param $search
      * @return string
      * @throws \yii\base\InvalidConfigException
      */
-    public function actionService($data, $name, $mode)
+    public function actionService($data, $name, $mode, $type, $search)
     {
         $model = DynamicModel::validateData(compact('data', 'name', 'mode'), [
             [['data'], 'integer', 'max' => 5],
@@ -95,7 +99,7 @@ class DefaultController extends Controller
         if ($model->hasErrors()) {
             return 'Error';
         } else {
-            $vars = (new Service())->service($data, $name, $mode);
+            $vars = (new Service())->service($data, $name, $mode, $type, $search);
 
             $this->vars = $vars;
 

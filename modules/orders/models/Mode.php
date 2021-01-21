@@ -17,6 +17,8 @@ class Mode extends Model
      * @param $data
      * @param $name
      * @param $mode
+     * @param $type
+     * @param $search
      * @return array
      */
     public function mode($data, $name, $mode, $type, $search)
@@ -42,8 +44,7 @@ class Mode extends Model
             }
             if ($type == 3) {
                 $condition['users.first_name'] = $search;
-            }
-            
+            }  
         }
         $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where($condition)->orderBy(['orders.id' => SORT_DESC]);
 

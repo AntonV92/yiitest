@@ -111,7 +111,7 @@ if (!isset($data['search'])) {
             <?php
             foreach ($this->context->vars['arr'] as $key => $v) {
 
-                echo "<li><a href=" . Url::to(['service', 'data' => $data['status'] , 'name' => $key, 'mode' => $data['mode'] ]) . "><span class=\"label-id\"> $v </span> $key </a></li>";
+                echo "<li><a href=" . Url::to(['service', 'data' => $data['status'] , 'name' => $key, 'mode' => $data['mode'], 'type' => $type, 'search' => $search ]) . "><span class=\"label-id\"> $v </span> $key </a></li>";
             }
             ?>
         </ul>
