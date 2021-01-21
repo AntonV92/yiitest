@@ -72,12 +72,12 @@ endif;
 </nav>
 	<div class="container-fluid">
 	<ul class="nav nav-tabs p-b">
-      <li class=<?php if ($this->context->vars['class'] == 'all'){ echo "active"; } ;?>><a href="/">All orders</a></li>
-      <li class=<?php if ($this->context->vars['class'] == 'pending'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 'pending']); ?>">Pending</a></li>
-      <li class=<?php if($this->context->vars['class'] == 'inprogress'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 'inprogress']); ?>">In progress</a></li>
-      <li class=<?php if($this->context->vars['class'] == 'completed'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 'completed']); ?>">Completed</a></li>
-      <li class=<?php if($this->context->vars['class'] == 'canceled'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 'canceled']); ?>">Canceled</a></li>
-      <li class=<?php if($this->context->vars['class'] == 'error'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 'error']); ?>">Error</a></li>
+      <li class=<?php if ($data['status'] == 'all'){ echo "active"; } ;?>><a href="/">All orders</a></li>
+      <li class=<?php if ($data['status'] == 'pending'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 'pending']); ?>">Pending</a></li>
+      <li class=<?php if($data['status'] == 'inprogress'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 'inprogress']); ?>">In progress</a></li>
+      <li class=<?php if($data['status'] == 'completed'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 'completed']); ?>">Completed</a></li>
+      <li class=<?php if($data['status'] == 'canceled'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 'canceled']); ?>">Canceled</a></li>
+      <li class=<?php if($data['status'] == 'error'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 'error']); ?>">Error</a></li>
       <li class="pull-right custom-search">
         <form class="form-inline" action="/search" method="get">
           <div class="input-group">

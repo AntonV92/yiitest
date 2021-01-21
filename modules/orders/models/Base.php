@@ -27,6 +27,10 @@ class Base extends Model
     const AUTO_MODE = 1;
     const ALL_MODE = 7;
 
+    const SEARCH_ID = 1;
+    const SEARCH_LINK = 2;
+    const SEARCH_USERNAME = 3;
+
     public function getPagination($query)
     {
         $countQuery = clone $query;

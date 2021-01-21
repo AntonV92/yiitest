@@ -39,26 +39,26 @@ class Mode extends Model
             $condition['orders.mode'] = $mode;
         }
         if ($type != 'none') {
-            if ($type == 2) {
+            if ($type == Base::SEARCH_LINK) {
                 $condition['orders.link'] = $search;
             }
-            if ($type == 3) {
-                $condition['users.first_name'] = $search;
-            }  
         }
-        $query = (new Query())->select([
-            'link',
-            'first_name',
-            'last_name' ,
-            'orders.id',
-            'quantity',
-            'services.name',
-            'created_at',
-            'orders.status',
-            'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join(
-                'JOIN',
-                'services',
-                'orders.service_id = services.id')->where($condition)->orderBy(['orders.id' => SORT_DESC]);
+
+
+        $query = (new Query())->select(
+            [
+                'link',
+                'first_name',
+                'last_name',
+                'orders.id',
+                'quantity',
+                'services.name',
+                'created_at',
+                'orders.status',
+                'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join(
+            'JOIN',
+            'services',
+            'orders.service_id = services.id')->where($condition)->orderBy(['orders.id' => SORT_DESC]);
 
         $getpag = (new Base())->getPagination($query);
         $getpag['search'] = $arrsearch;
@@ -68,5 +68,6 @@ class Mode extends Model
         $getpag['class'] = (new Base())->getClass($data);
 
         return $getpag;
+
     }
 }

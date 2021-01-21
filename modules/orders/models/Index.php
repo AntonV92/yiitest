@@ -29,12 +29,12 @@ class Index extends Model
             'created_at',
             'orders.status',
             'orders.mode'])->from('orders')->join(
-                'JOIN',
-                'users',
-                'orders.user_id = users.id')->join(
-                'JOIN',
-                'services',
-                'orders.service_id = services.id')->orderBy(['orders.id' => SORT_DESC]);
+            'JOIN',
+            'users',
+            'orders.user_id = users.id')->join(
+            'JOIN',
+            'services',
+            'orders.service_id = services.id')->orderBy(['orders.id' => SORT_DESC]);
 
         $getpag = (new Base())->getPagination($query);
         $getpag['status'] = 'all';

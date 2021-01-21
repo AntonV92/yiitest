@@ -27,17 +27,17 @@ class Search extends Model
         $condition = [];
 
         switch ($data['search-type']) {
-            case 1:
+            case Base::SEARCH_ID:
                 $condition['orders.id'] = $_GET['search'];
                 break;
-            case 2:
+            case Base::SEARCH_LINK:
                 $condition['orders.link'] = $_GET['search'];
                 break;
         }
 
-        if ($data['search-type'] != 3) {
+        if ($data['search-type'] != Base::SEARCH_USERNAME) {
             $query = (new Query())->select([
-                'link', 
+                'link',
                 'first_name',
                 'last_name',
                 'orders.id',
@@ -46,9 +46,9 @@ class Search extends Model
                 'created_at',
                 'orders.status',
                 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join(
-                    'JOIN',
-                    'services',
-                    'orders.service_id = services.id')->where($condition)->orderBy(['orders.id' => SORT_DESC]);
+                'JOIN',
+                'services',
+                'orders.service_id = services.id')->where($condition)->orderBy(['orders.id' => SORT_DESC]);
 
             $getpag = (new Base())->getPagination($query);
         } else {
@@ -57,16 +57,40 @@ class Search extends Model
                 $first_name = $arr[0];
                 $last_name = $arr[1];
 
-                $query = (new Query())->select(['link', 'first_name', 'last_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where(['users.first_name' => $first_name, 'users.last_name' => $last_name ])->orWhere(['users.first_name' => $last_name, 'users.last_name' => $first_name])->orderBy(['orders.id' => SORT_DESC]);
+                $query = (new Query())->select([
+                    'link',
+                    'first_name',
+                    'last_name',
+                    'orders.id',
+                    'quantity',
+                    'services.name',
+                    'created_at',
+                    'orders.status',
+                    'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join(
+                    'JOIN',
+                    'services',
+                    'orders.service_id = services.id')->where(['users.first_name' => $first_name, 'users.last_name' => $last_name])->orWhere(['users.first_name' => $last_name, 'users.last_name' => $first_name])->orderBy(['orders.id' => SORT_DESC]);
 
                 $getpag = (new Base())->getPagination($query);
             } else {
                 $name = $_GET['search'];
-                $query = (new Query())->select(['link', 'first_name', 'last_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where(['users.first_name' => $name])->orWhere(['users.last_name' => $name])->orderBy(['orders.id' => SORT_DESC]);
+                $query = (new Query())->select([
+                    'link',
+                    'first_name',
+                    'last_name',
+                    'orders.id',
+                    'quantity',
+                    'services.name',
+                    'created_at',
+                    'orders.status',
+                    'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join(
+                    'JOIN',
+                    'services',
+                    'orders.service_id = services.id')->where(['users.first_name' => $name])->orWhere(['users.last_name' => $name])->orderBy(['orders.id' => SORT_DESC]);
 
-            $getpag = (new Base())->getPagination($query);
+                $getpag = (new Base())->getPagination($query);
             }
-            
+
         }
 
         $search['search-type'] = $data['search-type'];
