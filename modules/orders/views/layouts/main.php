@@ -7,19 +7,19 @@ use app\modules\orders\widgets\MainWidget;
 
 $data = $this->context->vars;
 
-if (!isset($data['name'])) {
+if (!isset($data['name'])):
 	$data['name'] = 'none';
-}
-if (!isset($data['mode'])) {
+endif;
+if (!isset($data['mode'])):
 	$data['mode'] = 7;
-}
-if (!isset($data['search'])) {
+endif;
+if (!isset($data['search'])):
 	$type = 'none';
 	$search = 'none';
-} else {
+else:
 	$type = $data['search']['search-type'];
 	$search = $data['search']['search'];
-}
+endif;
 /* @var $this yii\web\View */
 /* @var $content string */
 ?>

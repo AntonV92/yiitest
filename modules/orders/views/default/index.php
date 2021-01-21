@@ -3,7 +3,7 @@
     <?php 
     
     foreach ($models as $model) {
-        switch ($model['status']) {
+        switch ($model['status']):
             case 0:
                 $status = 'Pending';
                 break;
@@ -19,7 +19,8 @@
             case 4:
                 $status = 'Error';
                 break;
-    }
+        endswitch;
+    
 
     $model['mode'] == 0 ? $mode = 'Manual' : $mode = 'Auto';
     echo "<tr>" . 
