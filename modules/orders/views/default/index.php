@@ -25,7 +25,7 @@
     $model['mode'] == 0 ? $mode = 'Manual' : $mode = 'Auto';
     echo "<tr>" . 
     "<td> {$model['id']} </td>
-    <td> {$model['first_name']} </td>
+    <td> {$model['first_name']}  {$model['last_name']} </td>
     <td class=\"link\"> {$model['link']} </td>
     <td> {$model['quantity']} </td>
     <td class=\"service\">

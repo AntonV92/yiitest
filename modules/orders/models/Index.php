@@ -19,10 +19,25 @@ class Index extends Model
      */
     public function index()
     {
-        $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->orderBy(['orders.id' => SORT_DESC]);
+        $query = (new Query())->select([
+            'link',
+            'first_name',
+            'last_name',
+            'orders.id',
+            'quantity',
+            'services.name',
+            'created_at',
+            'orders.status',
+            'orders.mode'])->from('orders')->join(
+                'JOIN',
+                'users',
+                'orders.user_id = users.id')->join(
+                'JOIN',
+                'services',
+                'orders.service_id = services.id')->orderBy(['orders.id' => SORT_DESC]);
 
         $getpag = (new Base())->getPagination($query);
-        $getpag['status'] = 5;
+        $getpag['status'] = 'all';
         $getpag['class'] = 'all';
 
         return $getpag;

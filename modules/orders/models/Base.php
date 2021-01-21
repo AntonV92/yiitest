@@ -16,6 +16,17 @@ class Base extends Model
      * @param $query
      * @return array
      */
+    const PENDING_STATUS = 0;
+    const INPROGRESS_STATUS = 1;
+    const COMPLETED_STATUS = 2;
+    const CANCELED_STATUS = 3;
+    const ERROR_STATUS = 4;
+    const ALL_STATUS = 5;
+
+    const MANUAL_MODE = 0;
+    const AUTO_MODE = 1;
+    const ALL_MODE = 7;
+
     public function getPagination($query)
     {
         $countQuery = clone $query;
@@ -62,28 +73,53 @@ class Base extends Model
      */
     public function getClass($arg)
     {
-        switch ($arg[0]) {
-            case 0:
+        switch ($arg) {
+            case self::PENDING_STATUS:
                 $class = 'pending';
                 break;
-            case 1:
+            case self::INPROGRESS_STATUS:
                 $class = 'inprogress';
                 break;
-            case 2:
+            case self::COMPLETED_STATUS:
                 $class = 'completed';
                 break;
-            case 3:
+            case self::CANCELED_STATUS:
                 $class = 'canceled';
                 break;
-            case 4:
+            case self::ERROR_STATUS:
                 $class = 'error';
                 break;
-            case 5:
+            case self::ALL_STATUS:
                 $class = 'all';
                 break;
         }
 
         return $class;
+    }
+
+    public function getStatus($data)
+    {
+        switch ($data) {
+            case 'pending':
+                $status = self::PENDING_STATUS;
+                break;
+            case 'inprogress':
+                $status = self::INPROGRESS_STATUS;
+                break;
+            case 'completed':
+                $status = self::COMPLETED_STATUS;
+                break;
+            case 'canceled':
+                $status = self::CANCELED_STATUS;
+                break;
+            case 'error':
+                $status = self::ERROR_STATUS;
+                break;
+            case 'all':
+                $status = self::ALL_STATUS;
+                break;
+        }
+        return $status;
     }
 
 }

@@ -4,6 +4,8 @@ use yii\widgets\LinkPager;
 use yii\helpers\Url;
 use app\assets\AppAsset;
 use app\modules\orders\widgets\MainWidget;
+use yii\captcha\Captcha;
+use app\modules\orders\models\Base;
 
 $data = $this->context->vars;
 
@@ -11,7 +13,7 @@ if (!isset($data['name'])):
 	$data['name'] = 'none';
 endif;
 if (!isset($data['mode'])):
-	$data['mode'] = 7;
+	$data['mode'] = Base::ALL_MODE;
 endif;
 if (!isset($data['search'])):
 	$type = 'none';
@@ -71,11 +73,11 @@ endif;
 	<div class="container-fluid">
 	<ul class="nav nav-tabs p-b">
       <li class=<?php if ($this->context->vars['class'] == 'all'){ echo "active"; } ;?>><a href="/">All orders</a></li>
-      <li class=<?php if ($this->context->vars['class'] == 'pending'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 0]); ?>">Pending</a></li>
-      <li class=<?php if($this->context->vars['class'] == 'inprogress'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 1]); ?>">In progress</a></li>
-      <li class=<?php if($this->context->vars['class'] == 'completed'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 2]); ?>">Completed</a></li>
-      <li class=<?php if($this->context->vars['class'] == 'canceled'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 3]); ?>">Canceled</a></li>
-      <li class=<?php if($this->context->vars['class'] == 'error'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 4]); ?>">Error</a></li>
+      <li class=<?php if ($this->context->vars['class'] == 'pending'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 'pending']); ?>">Pending</a></li>
+      <li class=<?php if($this->context->vars['class'] == 'inprogress'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 'inprogress']); ?>">In progress</a></li>
+      <li class=<?php if($this->context->vars['class'] == 'completed'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 'completed']); ?>">Completed</a></li>
+      <li class=<?php if($this->context->vars['class'] == 'canceled'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 'canceled']); ?>">Canceled</a></li>
+      <li class=<?php if($this->context->vars['class'] == 'error'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 'error']); ?>">Error</a></li>
       <li class="pull-right custom-search">
         <form class="form-inline" action="/search" method="get">
           <div class="input-group">
@@ -125,9 +127,9 @@ endif;
         <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-        <li><a href="<?php echo Url::to(['mode', 'data' => $data['status'] , 'name' => $data['name'], 'mode' => 7, 'type' => $type, 'search' => $search ]); ?>">All</a></li>
-        <li><a href="<?php echo Url::to(['mode', 'data' => $data['status'] , 'name' => $data['name'] , 'mode' => 0, 'type' => $type, 'search' => $search ]); ?>">Manual</a></li>
-        <li><a href="<?php echo Url::to(['mode', 'data' => $data['status'] , 'name' => $data['name'] , 'mode' => 1, 'type' => $type, 'search' => $search ]); ?>">Auto</a></li>
+        <li><a href="<?php echo Url::to(['mode', 'data' => $data['status'] , 'name' => $data['name'], 'mode' => Base::ALL_MODE, 'type' => $type, 'search' => $search ]); ?>">All</a></li>
+        <li><a href="<?php echo Url::to(['mode', 'data' => $data['status'] , 'name' => $data['name'] , 'mode' => Base::MANUAL_MODE, 'type' => $type, 'search' => $search ]); ?>">Manual</a></li>
+        <li><a href="<?php echo Url::to(['mode', 'data' => $data['status'] , 'name' => $data['name'] , 'mode' => Base::AUTO_MODE, 'type' => $type, 'search' => $search ]); ?>">Auto</a></li>
     </ul>
 </div>
 </th>

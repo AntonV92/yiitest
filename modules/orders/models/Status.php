@@ -18,11 +18,13 @@ class Status extends Model
      * @return array
      */
     public function status($data)
-    {
-        $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where(['orders.status' => $data])->orderBy(['orders.id' => SORT_DESC]);
+    {   
+        $status = (new Base())->getStatus($data);
+        
+        $query = (new Query())->select(['link', 'first_name', 'last_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where(['orders.status' => $status])->orderBy(['orders.id' => SORT_DESC]);
 
         $getpag = (new Base())->getPagination($query);
-        $getpag['class'] = (new Base())->getClass($data);
+        $getpag['class'] = (new Base())->getClass($status);
         $getpag['status'] = $data;
 
         return $getpag;

@@ -23,19 +23,19 @@ class Mode extends Model
      */
     public function mode($data, $name, $mode, $type, $search)
     {
-        $status = $data;
+        $status = (new Base())->getStatus($data);
 
         $condition = [];
         $arrsearch['search-type'] = $type;
         $arrsearch['search'] = $search;
 
-        if ($status < 5) {
+        if ($status != Base::ALL_STATUS) {
             $condition['orders.status'] = $status;
         }
         if ($name != 'none') {
             $condition['services.name'] = $name;
         }
-        if ($mode != 7) {
+        if ($mode != Base::ALL_MODE) {
             $condition['orders.mode'] = $mode;
         }
         if ($type != 'none') {
@@ -46,7 +46,19 @@ class Mode extends Model
                 $condition['users.first_name'] = $search;
             }  
         }
-        $query = (new Query())->select(['link', 'first_name', 'orders.id', 'quantity', 'services.name', 'created_at', 'orders.status', 'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where($condition)->orderBy(['orders.id' => SORT_DESC]);
+        $query = (new Query())->select([
+            'link',
+            'first_name',
+            'last_name' ,
+            'orders.id',
+            'quantity',
+            'services.name',
+            'created_at',
+            'orders.status',
+            'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join(
+                'JOIN',
+                'services',
+                'orders.service_id = services.id')->where($condition)->orderBy(['orders.id' => SORT_DESC]);
 
         $getpag = (new Base())->getPagination($query);
         $getpag['search'] = $arrsearch;
