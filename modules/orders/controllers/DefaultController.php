@@ -64,10 +64,13 @@ class DefaultController extends Controller
      */
     public function actionMode($data, $name, $mode, $type, $search)
     {
-        $model = DynamicModel::validateData(compact('data', 'name', 'mode'), [
+        $model = DynamicModel::validateData(compact('data', 'name', 'mode', 'type', 'search'), [
             [['data'], 'integer', 'max' => 5],
             [['name'], 'string', 'max' => 25],
-            [['mode'], 'integer', 'max' => 7]
+            [['mode'], 'integer', 'max' => 7],
+            [['type'], 'integer', 'max' => 3],
+            [['search'], 'string', 'max' => 125],
+
         ]);
         if ($model->hasErrors()) {
             return 'Error';
@@ -91,10 +94,12 @@ class DefaultController extends Controller
      */
     public function actionService($data, $name, $mode, $type, $search)
     {
-        $model = DynamicModel::validateData(compact('data', 'name', 'mode'), [
+        $model = DynamicModel::validateData(compact('data', 'name', 'mode', 'type', 'search'), [
             [['data'], 'integer', 'max' => 5],
             [['name'], 'string', 'max' => 25],
-            [['mode'], 'integer', 'max' => 7]
+            [['mode'], 'integer', 'max' => 7],
+            [['type'], 'integer', 'max' => 3],
+            [['search'], 'string', 'max' => 125],
         ]);
         if ($model->hasErrors()) {
             return 'Error';
