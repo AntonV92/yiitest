@@ -96,7 +96,6 @@ class Search extends Model
         $search['search-type'] = $data['search-type'];
         $search['search'] = $data['search'];
         $getpag['search'] = $search;
-        $getpag['class'] = 'all';
         $getpag['status'] = 'all';
 
         return $getpag;

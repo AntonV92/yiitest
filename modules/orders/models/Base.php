@@ -7,15 +7,11 @@ use yii\data\Pagination;
 use yii\base\Model;
 
 /**
- * Class BaseModel
+ * Class Base
  * @package app\modules\orders\models
  */
 class Base extends Model
 {
-    /**
-     * @param $query
-     * @return array
-     */
     const PENDING_STATUS = 0;
     const INPROGRESS_STATUS = 1;
     const COMPLETED_STATUS = 2;
@@ -30,7 +26,11 @@ class Base extends Model
     const SEARCH_ID = 1;
     const SEARCH_LINK = 2;
     const SEARCH_USERNAME = 3;
-
+    
+    /**
+     * @param $query
+     * @return array
+     */
     public function getPagination($query)
     {
         $countQuery = clone $query;
@@ -71,36 +71,11 @@ class Base extends Model
 
     }
 
+
     /**
-     * @param $arg
-     * @return string
+     * @param $data
+     * @return int
      */
-    public function getClass($arg)
-    {
-        switch ($arg) {
-            case self::PENDING_STATUS:
-                $class = 'pending';
-                break;
-            case self::INPROGRESS_STATUS:
-                $class = 'inprogress';
-                break;
-            case self::COMPLETED_STATUS:
-                $class = 'completed';
-                break;
-            case self::CANCELED_STATUS:
-                $class = 'canceled';
-                break;
-            case self::ERROR_STATUS:
-                $class = 'error';
-                break;
-            case self::ALL_STATUS:
-                $class = 'all';
-                break;
-        }
-
-        return $class;
-    }
-
     public function getStatus($data)
     {
         switch ($data) {

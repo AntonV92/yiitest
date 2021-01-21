@@ -36,7 +36,6 @@ class Status extends Model
             'orders.service_id = services.id')->where(['orders.status' => $status])->orderBy(['orders.id' => SORT_DESC]);
 
         $getpag = (new Base())->getPagination($query);
-        $getpag['class'] = (new Base())->getClass($status);
         $getpag['status'] = $data;
 
         return $getpag;

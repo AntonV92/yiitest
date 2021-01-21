@@ -42,6 +42,47 @@ class Mode extends Model
             if ($type == Base::SEARCH_LINK) {
                 $condition['orders.link'] = $search;
             }
+            if ($type == Base::SEARCH_USERNAME) {
+                $arr = explode(' ', $search);
+                if (count($arr) < 2) {
+                    $condition2 = $condition;
+                    $condition2['users.last_name'] = $search;
+                    $condition['users.first_name'] = $search;
+                    $query = (new Query())->select([
+                'link',
+                'first_name',
+                'last_name',
+                'orders.id',
+                'quantity',
+                'services.name',
+                'created_at',
+                'orders.status',
+                'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join(
+            'JOIN',
+            'services',
+            'orders.service_id = services.id')->where($condition)->orWhere($condition2)->orderBy(['orders.id' => SORT_DESC]);
+                } else {
+                    $condition2 = $condition;
+                    $condition['users.first_name'] = $arr[0];
+                    $condition['users.last_name'] = $arr[1];
+                    $condition2['users.first_name'] = $arr[1];
+                    $condition2['users.last_name'] = $arr[0];
+
+                    $query = (new Query())->select([
+                'link',
+                'first_name',
+                'last_name',
+                'orders.id',
+                'quantity',
+                'services.name',
+                'created_at',
+                'orders.status',
+                'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join(
+            'JOIN',
+            'services',
+            'orders.service_id = services.id')->where($condition)->orWhere($condition2)->orderBy(['orders.id' => SORT_DESC]);
+                }
+            }
         }
 
 
@@ -65,7 +106,6 @@ class Mode extends Model
         $getpag['status'] = $data;
         $getpag['name'] = $name;
         $getpag['mode'] = $mode;
-        $getpag['class'] = (new Base())->getClass($data);
 
         return $getpag;
 
