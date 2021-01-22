@@ -23,13 +23,14 @@ class Service extends Model
      */
     public function service($data, $name, $mode, $type, $search)
     {
+        $status = (new Base())->getStatus($data);
 
         $condition = [];
         $arrsearch['search-type'] = $type;
         $arrsearch['search'] = $search;
 
-        if ($data != 'all') {
-            $condition['orders.status'] = (new Base())->getStatus($data);;
+        if ($status != Base::ALL_STATUS) {
+            $condition['orders.status'] = $status;
         }
         if ($name != 'none') {
             $condition['services.name'] = $name;
@@ -37,29 +38,113 @@ class Service extends Model
         if ($mode != Base::ALL_MODE) {
             $condition['orders.mode'] = $mode;
         }
-        if ($type == Base::SEARCH_LINK) {
-            $condition['orders.link'] = $search;
+
+
+        if ($type != 'none' && $type != Base::SEARCH_USERNAME) {
+            if ($type == Base::SEARCH_LINK) {
+                $condition['orders.link'] = $search;
+            }
+
+
+            $query = (new Query())->select(
+                [
+                    'link',
+                    'first_name',
+                    'last_name',
+                    'orders.id',
+                    'quantity',
+                    'services.name',
+                    'created_at',
+                    'orders.status',
+                    'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join(
+                'JOIN',
+                'services',
+                'orders.service_id = services.id')->where($condition)->orderBy(['orders.id' => SORT_DESC]);
+
+            $getpag = (new Base())->getPagination($query);
+            $getpag['search'] = $arrsearch;
+            $getpag['status'] = $data;
+            $getpag['name'] = $name;
+            $getpag['mode'] = $mode;
+
+            return $getpag;
+
         }
-        $query = (new Query())->select([
-            'link',
-            'first_name',
-            'last_name',
-            'orders.id',
-            'quantity',
-            'services.name',
-            'created_at',
-            'orders.status',
-            'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join('JOIN', 'services', 'orders.service_id = services.id')->where($condition)->orderBy(['orders.id' => SORT_DESC]);
 
-        $getpag = (new Base())->getPagination($query);
+        if ($type == Base::SEARCH_USERNAME) {
+            $arr = explode(' ', $search);
+            if (count($arr) < 2) {
+                $condition2 = $condition;
+                $condition2['users.last_name'] = $search;
+                $condition['users.first_name'] = $search;
+                $query = (new Query())->select([
+                    'link',
+                    'first_name',
+                    'last_name',
+                    'orders.id',
+                    'quantity',
+                    'services.name',
+                    'created_at',
+                    'orders.status',
+                    'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join(
+                    'JOIN',
+                    'services',
+                    'orders.service_id = services.id')->where($condition)->orWhere($condition2)->orderBy(['orders.id' => SORT_DESC]);
+            } else {
 
+                $condition2 = $condition;
+                $condition2['users.first_name'] = $arr[1];
+                $condition2['users.last_name'] = $arr[0];
+                $condition['users.first_name'] = $arr[0];
+                $condition['users.last_name'] = $arr[1];
 
-        $getpag['search'] = $arrsearch;
-        $getpag['status'] = $data;
-        $getpag['name'] = $name;
-        $getpag['mode'] = $mode;
+                $query = (new Query())->select([
+                    'link',
+                    'first_name',
+                    'last_name',
+                    'orders.id',
+                    'quantity',
+                    'services.name',
+                    'created_at',
+                    'orders.status',
+                    'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join(
+                    'JOIN',
+                    'services',
+                    'orders.service_id = services.id')->where($condition)->orWhere($condition2)->orderBy(['orders.id' => SORT_DESC]);
+            }
 
-        return $getpag;
+            $getpag = (new Base())->getPagination($query);
+            $getpag['search'] = $arrsearch;
+            $getpag['status'] = $data;
+            $getpag['name'] = $name;
+            $getpag['mode'] = $mode;
 
-    }
+            return $getpag;
+        }
+
+        if ($type == 'none') {
+            $query = (new Query())->select(
+                [
+                    'link',
+                    'first_name',
+                    'last_name',
+                    'orders.id',
+                    'quantity',
+                    'services.name',
+                    'created_at',
+                    'orders.status',
+                    'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join(
+                'JOIN',
+                'services',
+                'orders.service_id = services.id')->where($condition)->orderBy(['orders.id' => SORT_DESC]);
+
+            $getpag = (new Base())->getPagination($query);
+            $getpag['search'] = $arrsearch;
+            $getpag['status'] = $data;
+            $getpag['name'] = $name;
+            $getpag['mode'] = $mode;
+
+            return $getpag;
+        }
+    }   
 }
