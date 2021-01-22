@@ -56,10 +56,13 @@ class Mode extends Model
                     'services.name',
                     'created_at',
                     'orders.status',
-                    'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join(
-                'JOIN',
-                'services',
-                'orders.service_id = services.id')->where($condition)->orderBy(['orders.id' => SORT_DESC]);
+                    'orders.mode'])->from('orders')->join(
+                    'JOIN',
+                    'users',
+                    'orders.user_id = users.id')->join(
+                    'JOIN',
+                    'services',
+                    'orders.service_id = services.id')->where($condition)->orderBy(['orders.id' => SORT_DESC]);
 
             $getpag = (new Base())->getPagination($query);
             $getpag['search'] = $arrsearch;
@@ -86,10 +89,13 @@ class Mode extends Model
                     'services.name',
                     'created_at',
                     'orders.status',
-                    'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join(
+                    'orders.mode'])->from('orders')->join(
+                        'JOIN',
+                    'users', 'orders.user_id = users.id')->join(
                     'JOIN',
                     'services',
-                    'orders.service_id = services.id')->where($condition)->orWhere($condition2)->orderBy(['orders.id' => SORT_DESC]);
+                    'orders.service_id = services.id')->where($condition)->orWhere($condition2)->orderBy(
+                    ['orders.id' => SORT_DESC]);
             } else {
 
                 $condition2 = $condition;
@@ -107,10 +113,14 @@ class Mode extends Model
                     'services.name',
                     'created_at',
                     'orders.status',
-                    'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join(
+                    'orders.mode'])->from('orders')->join(
+                    'JOIN',
+                    'users',
+                    'orders.user_id = users.id')->join(
                     'JOIN',
                     'services',
-                    'orders.service_id = services.id')->where($condition)->orWhere($condition2)->orderBy(['orders.id' => SORT_DESC]);
+                    'orders.service_id = services.id')->where($condition)->orWhere($condition2)->orderBy(
+                    ['orders.id' => SORT_DESC]);
             }
 
             $getpag = (new Base())->getPagination($query);
@@ -133,10 +143,13 @@ class Mode extends Model
                     'services.name',
                     'created_at',
                     'orders.status',
-                    'orders.mode'])->from('orders')->join('JOIN', 'users', 'orders.user_id = users.id')->join(
-                'JOIN',
-                'services',
-                'orders.service_id = services.id')->where($condition)->orderBy(['orders.id' => SORT_DESC]);
+                    'orders.mode'])->from('orders')->join(
+                    'JOIN',
+                    'users',
+                    'orders.user_id = users.id')->join(
+                    'JOIN',
+                    'services',
+                    'orders.service_id = services.id')->where($condition)->orderBy(['orders.id' => SORT_DESC]);
 
             $getpag = (new Base())->getPagination($query);
             $getpag['search'] = $arrsearch;
