@@ -10,14 +10,14 @@ use app\modules\orders\models\Base;
 $data = $this->context->vars;
 
 if (!isset($data['name'])):
-	$data['name'] = 'none';
+	$data['name'] = Base::NONETYPE;
 endif;
 if (!isset($data['mode'])):
 	$data['mode'] = Base::ALL_MODE;
 endif;
 if (!isset($data['search'])):
-	$type = 'none';
-	$search = 'none';
+	$type = Base::NONETYPE;
+	$search = Base::NONETYPE;
 else:
 	$type = $data['search']['search-type'];
 	$search = $data['search']['search'];
