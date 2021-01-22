@@ -32,7 +32,7 @@ class Service extends Model
         if ($status != Base::ALL_STATUS) {
             $condition['orders.status'] = $status;
         }
-        if ($name != 'none') {
+        if ($name != Base::NONETYPE) {
             $condition['services.name'] = $name;
         }
         if ($mode != Base::ALL_MODE) {
@@ -40,7 +40,7 @@ class Service extends Model
         }
 
 
-        if ($type != 'none' && $type != Base::SEARCH_USERNAME) {
+        if ($type != Base::NONETYPE && $type != Base::SEARCH_USERNAME) {
             if ($type == Base::SEARCH_LINK) {
                 $condition['orders.link'] = $search;
             }
@@ -133,7 +133,7 @@ class Service extends Model
             return $getpag;
         }
 
-        if ($type == 'none') {
+        if ($type == Base::NONETYPE) {
             $query = (new Query())->select(
                 [
                     'link',

@@ -27,6 +27,8 @@ class Base extends Model
     const SEARCH_LINK = 2;
     const SEARCH_USERNAME = 3;
     
+    const NONETYPE = 'none';
+    
     /**
      * @param $query
      * @return array

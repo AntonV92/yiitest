@@ -16,12 +16,11 @@ use app\modules\orders\models\Search;
  */
 class DefaultController extends Controller
 {
+    public $vars;
     /**
      * Renders the index view for the module
      * @return string
      */
-    public $vars;
-
     public function actionIndex()
     {
 
@@ -69,6 +68,7 @@ class DefaultController extends Controller
             [['name'], 'string', 'max' => 25],
             [['mode'], 'integer', 'max' => 7],
             [['search'], 'string', 'max' => 125],
+            [['type'], 'string', 'max' => 4]
 
         ]);
         if ($model->hasErrors()) {
@@ -98,6 +98,7 @@ class DefaultController extends Controller
             [['name'], 'string', 'max' => 25],
             [['mode'], 'integer', 'max' => 7],
             [['search'], 'string', 'max' => 125],
+            [['type'], 'string', 'max' => 4]
         ]);
         if ($model->hasErrors()) {
             return 'Error';
@@ -133,5 +134,4 @@ class DefaultController extends Controller
             return $this->render('index', $vars);
         }
     }
-
 }
