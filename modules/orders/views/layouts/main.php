@@ -109,7 +109,7 @@ endif;
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li class="active"><a href="">All <?php echo array_sum($this->context->vars['arr']); ?> </a></li>
+            <li class="active"><a href="<?php echo Url::to(['service', 'data' => $data['status'] , 'name' => Base::NONETYPE , 'mode' => $data['mode'], 'type' => $type, 'search' => $search ]) ?>">All <?php echo array_sum($this->context->vars['arr']); ?> </a></li>
             <?php
             foreach ($this->context->vars['arr'] as $key => $v) {
 
