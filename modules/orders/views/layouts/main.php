@@ -73,13 +73,13 @@ endif;
 	<div class="container-fluid">
 	<ul class="nav nav-tabs p-b">
       <li class=<?php if ($data['status'] == 'all'){ echo "active"; } ;?>><a href="/">All orders</a></li>
-      <li class=<?php if ($data['status'] == 'pending'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 'pending']); ?>">Pending</a></li>
-      <li class=<?php if($data['status'] == 'inprogress'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 'inprogress']); ?>">In progress</a></li>
-      <li class=<?php if($data['status'] == 'completed'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 'completed']); ?>">Completed</a></li>
-      <li class=<?php if($data['status'] == 'canceled'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 'canceled']); ?>">Canceled</a></li>
-      <li class=<?php if($data['status'] == 'error'){ echo "active"; } ;?>><a href="<?php echo Url::to(['status', 'data' => 'error']); ?>">Error</a></li>
+      <li class=<?php if ($data['status'] == 'pending'){ echo "active"; } ;?>><a href="<?php echo Url::to(['search', 'data' => 'pending']); ?>">Pending</a></li>
+      <li class=<?php if($data['status'] == 'inprogress'){ echo "active"; } ;?>><a href="<?php echo Url::to(['search', 'data' => 'inprogress']); ?>">In progress</a></li>
+      <li class=<?php if($data['status'] == 'completed'){ echo "active"; } ;?>><a href="<?php echo Url::to(['search', 'data' => 'completed']); ?>">Completed</a></li>
+      <li class=<?php if($data['status'] == 'canceled'){ echo "active"; } ;?>><a href="<?php echo Url::to(['search', 'data' => 'canceled']); ?>">Canceled</a></li>
+      <li class=<?php if($data['status'] == 'error'){ echo "active"; } ;?>><a href="<?php echo Url::to(['search', 'data' => 'error']); ?>">Error</a></li>
       <li class="pull-right custom-search">
-        <form class="form-inline" action="/search" method="get">
+        <form class="form-inline" action="search" method="get">
           <div class="input-group">
             <input type="text" name="search" class="form-control" value="" placeholder="Search orders">
             <span class="input-group-btn search-select-wrap">
@@ -109,11 +109,11 @@ endif;
             <span class="caret"></span>
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-            <li class="active"><a href="<?php echo Url::to(['service', 'data' => $data['status'] , 'name' => Base::NONETYPE , 'mode' => $data['mode'], 'type' => $type, 'search' => $search ]) ?>">All <?php echo array_sum($this->context->vars['arr']); ?> </a></li>
+            <li class="active"><a href="<?php echo Url::to(['search', 'data' => $data['status'] , 'name' => Base::NONETYPE , 'mode' => $data['mode'], 'search-type' => $type, 'search' => $search ]) ?>">All <?php echo array_sum($this->context->vars['arr']); ?> </a></li>
             <?php
             foreach ($this->context->vars['arr'] as $key => $v) {
 
-                echo "<li><a href=" . Url::to(['service', 'data' => $data['status'] , 'name' => $key, 'mode' => $data['mode'], 'type' => $type, 'search' => $search ]) . "><span class=\"label-id\"> $v </span> $key </a></li>";
+                echo "<li><a href=" . Url::to(['search', 'data' => $data['status'] , 'name' => $key, 'mode' => $data['mode'], 'search-type' => $type, 'search' => $search ]) . "><span class=\"label-id\"> $v </span> $key </a></li>";
             }
             ?>
         </ul>
@@ -127,9 +127,9 @@ endif;
         <span class="caret"></span>
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-        <li><a href="<?php echo Url::to(['mode', 'data' => $data['status'] , 'name' => $data['name'], 'mode' => Base::ALL_MODE, 'type' => $type, 'search' => $search ]); ?>">All</a></li>
-        <li><a href="<?php echo Url::to(['mode', 'data' => $data['status'] , 'name' => $data['name'] , 'mode' => Base::MANUAL_MODE, 'type' => $type, 'search' => $search ]); ?>">Manual</a></li>
-        <li><a href="<?php echo Url::to(['mode', 'data' => $data['status'] , 'name' => $data['name'] , 'mode' => Base::AUTO_MODE, 'type' => $type, 'search' => $search ]); ?>">Auto</a></li>
+        <li><a href="<?php echo Url::to(['search', 'data' => $data['status'] , 'name' => $data['name'], 'mode' => Base::ALL_MODE, 'search-type' => $type, 'search' => $search ]); ?>">All</a></li>
+        <li><a href="<?php echo Url::to(['search', 'data' => $data['status'] , 'name' => $data['name'] , 'mode' => Base::MANUAL_MODE, 'search-type' => $type, 'search' => $search ]); ?>">Manual</a></li>
+        <li><a href="<?php echo Url::to(['search', 'data' => $data['status'] , 'name' => $data['name'] , 'mode' => Base::AUTO_MODE, 'search-type' => $type, 'search' => $search ]); ?>">Auto</a></li>
     </ul>
 </div>
 </th>

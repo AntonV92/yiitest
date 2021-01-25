@@ -6,6 +6,7 @@ use app\modules\orders\models\Base;
 use yii\db\Query;
 use yii\data\Pagination;
 use yii\base\Model;
+use yii\base\DynamicModel;
 
 
 /**
@@ -184,11 +185,13 @@ class OrdersSearch extends Model
 
     }
 
+
+
     /**
      * @param $get
      */
     private function setParam($get)
-    {
+    {   
         if (!isset($get['data'])) {
             $this->data = Base::ALL_STATUS;
         } else {
