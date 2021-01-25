@@ -39,6 +39,10 @@ class Index extends Model
         $getpag = (new Base())->getPagination($query);
         $getpag['status'] = 'all';
 
+        foreach ($getpag['models'] as $model) {
+            $model['status'] = 'rwfwefewf';
+        }
+
         return $getpag;
     }
 }

@@ -26,9 +26,9 @@ class Base extends Model
     const SEARCH_ID = 1;
     const SEARCH_LINK = 2;
     const SEARCH_USERNAME = 3;
-    
+
     const NONETYPE = 'none';
-    
+
     /**
      * @param $query
      * @return array
@@ -41,6 +41,7 @@ class Base extends Model
             ->limit($pages->limit)
             ->all();
         $count = $countQuery->count();
+
         return [
             'models' => $models,
             'pages' => $pages,
@@ -102,5 +103,4 @@ class Base extends Model
         }
         return $status;
     }
-
 }
