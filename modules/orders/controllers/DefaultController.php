@@ -3,7 +3,6 @@
 namespace app\modules\orders\controllers;
 
 use yii\web\Controller;
-use yii\base\DynamicModel;
 use app\modules\orders\models\Index;
 use app\modules\orders\models\Status;
 use app\modules\orders\models\Mode;

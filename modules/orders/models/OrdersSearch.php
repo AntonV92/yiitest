@@ -6,7 +6,6 @@ use app\modules\orders\models\Base;
 use yii\db\Query;
 use yii\data\Pagination;
 use yii\base\Model;
-use yii\base\DynamicModel;
 
 
 /**
@@ -38,6 +37,16 @@ class OrdersSearch extends Model
             $search = $this->search;
             $arrsearch['search-type'] = $type;
             $arrsearch['search'] = $search;
+            $select = [
+                        'link',
+                        'first_name',
+                        'last_name',
+                        'orders.id',
+                        'quantity',
+                        'services.name',
+                        'created_at',
+                        'orders.status',
+                        'orders.mode'];
 
             if ($data == Base::ALL_STATUS) {
                 $status = $data;
@@ -66,17 +75,7 @@ class OrdersSearch extends Model
                 }
 
 
-                $query = (new Query())->select(
-                    [
-                        'link',
-                        'first_name',
-                        'last_name',
-                        'orders.id',
-                        'quantity',
-                        'services.name',
-                        'created_at',
-                        'orders.status',
-                        'orders.mode'])->from('orders')->join(
+                $query = (new Query())->select($select)->from('orders')->join(
                     'JOIN',
                     'users',
                     'orders.user_id = users.id')->join(
@@ -95,16 +94,7 @@ class OrdersSearch extends Model
                     $condition2 = $condition;
                     $condition2['users.last_name'] = $search;
                     $condition['users.first_name'] = $search;
-                    $query = (new Query())->select([
-                        'link',
-                        'first_name',
-                        'last_name',
-                        'orders.id',
-                        'quantity',
-                        'services.name',
-                        'created_at',
-                        'orders.status',
-                        'orders.mode'])->from('orders')->join(
+                    $query = (new Query())->select($select)->from('orders')->join(
                         'JOIN',
                         'users', 'orders.user_id = users.id')->join(
                         'JOIN',
@@ -119,16 +109,7 @@ class OrdersSearch extends Model
                     $condition['users.first_name'] = $arr[0];
                     $condition['users.last_name'] = $arr[1];
 
-                    $query = (new Query())->select([
-                        'link',
-                        'first_name',
-                        'last_name',
-                        'orders.id',
-                        'quantity',
-                        'services.name',
-                        'created_at',
-                        'orders.status',
-                        'orders.mode'])->from('orders')->join(
+                    $query = (new Query())->select($select)->from('orders')->join(
                         'JOIN',
                         'users',
                         'orders.user_id = users.id')->join(
@@ -143,17 +124,7 @@ class OrdersSearch extends Model
             }
 
             if ($type == Base::NONETYPE) {
-                $query = (new Query())->select(
-                    [
-                        'link',
-                        'first_name',
-                        'last_name',
-                        'orders.id',
-                        'quantity',
-                        'services.name',
-                        'created_at',
-                        'orders.status',
-                        'orders.mode'])->from('orders')->join(
+                $query = (new Query())->select($select)->from('orders')->join(
                     'JOIN',
                     'users',
                     'orders.user_id = users.id')->join(
