@@ -42,8 +42,43 @@ class Base extends Model
             ->all();
         $count = $countQuery->count();
 
+        $newm = [];
+
+        foreach ($models as $val) {
+            switch ($val['status']) {
+                case 0:
+                    $val['status'] = 'Pending';
+                    break;
+                case 1:
+                    $val['status'] = 'In Progress';
+                    break;
+                case 2:
+                    $val['status'] = 'Completed';
+                    break;
+                case 3:
+                    $val['status'] = 'Canceled';
+                    break;
+                case 4:
+                    $val['status'] = 'Error';
+                    break;
+            }
+
+            switch ($val['mode']) {
+                case 0:
+                    $val['mode'] = 'Manual';
+                    break;
+                case 1:
+                    $val['mode'] = 'Auto';
+                    break;
+            }
+
+            $newm[] = $val;
+        }
+
+        
+
         return [
-            'models' => $models,
+            'models' => $newm,
             'pages' => $pages,
             'count' => $count,
             'services' => self::getService(),

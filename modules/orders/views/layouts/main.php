@@ -8,20 +8,8 @@ use yii\captcha\Captcha;
 use app\modules\orders\models\Base;
 
 $data = $this->context->vars;
-
-if (!isset($data['name'])):
-	$data['name'] = Base::NONETYPE;
-endif;
-if (!isset($data['mode'])):
-	$data['mode'] = Base::ALL_MODE;
-endif;
-if (!isset($data['search'])):
-	$type = Base::NONETYPE;
-	$search = Base::NONETYPE;
-else:
-	$type = $data['search']['search-type'];
-	$search = $data['search']['search'];
-endif;
+$type = $data['search']['search-type'];
+$search = $data['search']['search'];
 /* @var $this yii\web\View */
 /* @var $content string */
 ?>
@@ -79,7 +67,7 @@ endif;
       <li class=<?php if($data['status'] == 'canceled'){ echo "active"; } ;?>><a href="<?php echo Url::to(['search', 'data' => 'canceled']); ?>">Canceled</a></li>
       <li class=<?php if($data['status'] == 'error'){ echo "active"; } ;?>><a href="<?php echo Url::to(['search', 'data' => 'error']); ?>">Error</a></li>
       <li class="pull-right custom-search">
-        <form class="form-inline" action="search" method="get">
+        <form class="form-inline" action="/search" method="get">
           <div class="input-group">
             <input type="text" name="search" class="form-control" value="" placeholder="Search orders">
             <span class="input-group-btn search-select-wrap">

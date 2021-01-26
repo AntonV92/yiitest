@@ -20,11 +20,24 @@ class DefaultController extends Controller
     public $vars;
 
     public function actionSearch()
+    {   
+        $model = new OrdersSearch();
+        $vars = $model->search($_GET);
+
+        if ($model->validate()) {
+            $this->vars = $vars;
+            return $this->render('index', $vars);
+        } else {
+            return 'error';
+        }
+    }
+
+    public function actions()
     {
-        $vars = (new OrdersSearch())->search($_GET);
-
-        $this->vars = $vars;
-
-        return $this->render('index', $vars);
+        return [
+            'error' => [
+                'class' => 'yii\web\ErrorAction',
+            ],
+        ];
     }
 }

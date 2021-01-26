@@ -240,6 +240,12 @@ class OrdersSearch extends Model
 
         $getpag = (new Base())->getPagination($query);
         $getpag['status'] = 'all';
+        $getpag['mode'] = Base::ALL_MODE;
+        $getpag['name'] = Base::NONETYPE;
+        $getpag['type'] = Base::NONETYPE;
+        $getpag['search']['search-type'] = Base::NONETYPE;
+        $getpag['search']['search'] = Base::NONETYPE;
+
 
         return $getpag;
     }

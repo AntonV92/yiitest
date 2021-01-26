@@ -63,11 +63,8 @@ $config = [
             'showScriptName' => false,
             'rules' => [
                 '/' => 'orders/default/search',
-                '/status/<data:>' => 'orders/default/status',
-                '/mode/<data:>' => 'orders/default/mode',
-                '/service/<data:>' => 'orders/default/service',
                 '/search' => 'orders/default/search',
-                '/test' => 'orders/default/test' 
+                '/test' => 'orders/default/test',
             ],
         ],
         
