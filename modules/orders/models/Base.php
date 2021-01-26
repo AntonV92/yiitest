@@ -75,12 +75,14 @@ class Base extends Model
             $newm[] = $val;
         }
 
-        
+        $stats = ['All', 'Pending', 'In progress', 'Completed', 'Canceled', 'Error'];
+
 
         return [
             'models' => $newm,
             'pages' => $pages,
             'count' => $count,
+            'stats' => $stats,
             'services' => self::getService(),
             'arr' => self::getArray(),
         ];
@@ -117,22 +119,22 @@ class Base extends Model
     public function getStatus($data)
     {
         switch ($data) {
-            case 'pending':
+            case 'Pending':
                 $status = self::PENDING_STATUS;
                 break;
-            case 'inprogress':
+            case 'In progress':
                 $status = self::INPROGRESS_STATUS;
                 break;
-            case 'completed':
+            case 'Completed':
                 $status = self::COMPLETED_STATUS;
                 break;
-            case 'canceled':
+            case 'Canceled':
                 $status = self::CANCELED_STATUS;
                 break;
-            case 'error':
+            case 'Error':
                 $status = self::ERROR_STATUS;
                 break;
-            case 'all':
+            case 'All':
                 $status = self::ALL_STATUS;
                 break;
         }

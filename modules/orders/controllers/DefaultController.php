@@ -19,8 +19,11 @@ class DefaultController extends Controller
 {
     public $vars;
 
+    /**
+     * @return string
+     */
     public function actionSearch()
-    {   
+    {
         $model = new OrdersSearch();
         $vars = $model->search($_GET);
 
@@ -28,16 +31,7 @@ class DefaultController extends Controller
             $this->vars = $vars;
             return $this->render('index', $vars);
         } else {
-            return 'error';
+            return 'Error';
         }
-    }
-
-    public function actions()
-    {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-        ];
     }
 }

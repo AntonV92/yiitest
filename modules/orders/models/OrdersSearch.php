@@ -85,12 +85,7 @@ class OrdersSearch extends Model
                     'orders.service_id = services.id')->where($condition)->orderBy(['orders.id' => SORT_DESC]);
 
                 $getpag = (new Base())->getPagination($query);
-                $getpag['search'] = $arrsearch;
-                $getpag['status'] = $data;
-                $getpag['name'] = $name;
-                $getpag['mode'] = $mode;
 
-                return $getpag;
 
             }
 
@@ -144,12 +139,7 @@ class OrdersSearch extends Model
                 }
 
                 $getpag = (new Base())->getPagination($query);
-                $getpag['search'] = $arrsearch;
-                $getpag['status'] = $data;
-                $getpag['name'] = $name;
-                $getpag['mode'] = $mode;
 
-                return $getpag;
             }
 
             if ($type == Base::NONETYPE) {
@@ -172,26 +162,26 @@ class OrdersSearch extends Model
                     'orders.service_id = services.id')->where($condition)->orderBy(['orders.id' => SORT_DESC]);
 
                 $getpag = (new Base())->getPagination($query);
-                $getpag['search'] = $arrsearch;
-                $getpag['status'] = $data;
-                $getpag['name'] = $name;
-                $getpag['mode'] = $mode;
 
-                return $getpag;
             }
 
+            $getpag['search'] = $arrsearch;
+            $getpag['status'] = $data;
+            $getpag['name'] = $name;
+            $getpag['mode'] = $mode;
+
+            return $getpag;
 
         }
 
     }
 
 
-
     /**
      * @param $get
      */
     private function setParam($get)
-    {   
+    {
         if (!isset($get['data'])) {
             $this->data = Base::ALL_STATUS;
         } else {
@@ -239,7 +229,7 @@ class OrdersSearch extends Model
             'orders.service_id = services.id')->orderBy(['orders.id' => SORT_DESC]);
 
         $getpag = (new Base())->getPagination($query);
-        $getpag['status'] = 'all';
+        $getpag['status'] = 'All';
         $getpag['mode'] = Base::ALL_MODE;
         $getpag['name'] = Base::NONETYPE;
         $getpag['type'] = Base::NONETYPE;
@@ -248,5 +238,17 @@ class OrdersSearch extends Model
 
 
         return $getpag;
+    }
+
+    /**
+     * @return array[]
+     */
+    public function rules()
+    {
+        return [
+            [['search'], 'string', 'max' => 120],
+            [['mode'], 'integer', 'max' => 7],
+            [['name'], 'string', 'max' => 25],
+        ];
     }
 }

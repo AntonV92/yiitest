@@ -2,7 +2,7 @@
 <tbody>
 	<?php
 	foreach ($models as $model) {
-		echo "<tr>" . 
+	echo "<tr>" . 
 	"<td> {$model['id']} </td>
 	<td> {$model['first_name']}  {$model['last_name']} </td>
 	<td class=\"link\"> {$model['link']} </td>

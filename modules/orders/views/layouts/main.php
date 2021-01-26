@@ -60,12 +60,11 @@ $search = $data['search']['search'];
 </nav>
 	<div class="container-fluid">
 	<ul class="nav nav-tabs p-b">
-      <li class=<?php if ($data['status'] == 'all'){ echo "active"; } ;?>><a href="/">All orders</a></li>
-      <li class=<?php if ($data['status'] == 'pending'){ echo "active"; } ;?>><a href="<?php echo Url::to(['search', 'data' => 'pending']); ?>">Pending</a></li>
-      <li class=<?php if($data['status'] == 'inprogress'){ echo "active"; } ;?>><a href="<?php echo Url::to(['search', 'data' => 'inprogress']); ?>">In progress</a></li>
-      <li class=<?php if($data['status'] == 'completed'){ echo "active"; } ;?>><a href="<?php echo Url::to(['search', 'data' => 'completed']); ?>">Completed</a></li>
-      <li class=<?php if($data['status'] == 'canceled'){ echo "active"; } ;?>><a href="<?php echo Url::to(['search', 'data' => 'canceled']); ?>">Canceled</a></li>
-      <li class=<?php if($data['status'] == 'error'){ echo "active"; } ;?>><a href="<?php echo Url::to(['search', 'data' => 'error']); ?>">Error</a></li>
+    <?php
+      foreach ($data['stats'] as $value) {
+        echo "<li class=' " . ($data['status'] == $value ? 'active' : '') . " '><a href='" . ($value != 'All' ? Url::to(['/search', 'data' => $value]) : '/') . "'>" . $value . "</a></li>";
+      }
+     ?>
       <li class="pull-right custom-search">
         <form class="form-inline" action="/search" method="get">
           <div class="input-group">
