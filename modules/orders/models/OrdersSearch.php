@@ -182,24 +182,24 @@ class OrdersSearch extends Model
      */
     private function setParam($get)
     {
-        if (!isset($get['data'])) {
+        if (! isset($get['data'])) {
             $this->data = Base::ALL_STATUS;
         } else {
             $this->data = $get['data'];
         }
-        if (!isset($get['name'])) {
+        if (! isset($get['name'])) {
             $this->name = Base::NONETYPE;
         } else {
             $this->name = $get['name'];
         }
-        if (!isset($get['search-type'])) {
+        if (! isset($get['search-type'])) {
             $this->type = Base::NONETYPE;
             $this->search = Base::NONETYPE;
         } else {
             $this->type = $get['search-type'];
             $this->search = trim($get['search']);
         }
-        if (!isset($get['mode'])) {
+        if (! isset($get['mode'])) {
             $this->mode = Base::ALL_MODE;
         } else {
             $this->mode = $get['mode'];

@@ -12,22 +12,22 @@ use yii\base\Model;
  */
 class Base extends Model
 {
-    const PENDING_STATUS = 0;
-    const INPROGRESS_STATUS = 1;
-    const COMPLETED_STATUS = 2;
-    const CANCELED_STATUS = 3;
-    const ERROR_STATUS = 4;
-    const ALL_STATUS = 5;
+    public const PENDING_STATUS = 0;
+    public const INPROGRESS_STATUS = 1;
+    public const COMPLETED_STATUS = 2;
+    public const CANCELED_STATUS = 3;
+    public const ERROR_STATUS = 4;
+    public const ALL_STATUS = 5;
 
-    const MANUAL_MODE = 0;
-    const AUTO_MODE = 1;
-    const ALL_MODE = 7;
+    public const MANUAL_MODE = 0;
+    public const AUTO_MODE = 1;
+    public const ALL_MODE = 7;
 
-    const SEARCH_ID = 1;
-    const SEARCH_LINK = 2;
-    const SEARCH_USERNAME = 3;
+    public const SEARCH_ID = 1;
+    public const SEARCH_LINK = 2;
+    public const SEARCH_USERNAME = 3;
 
-    const NONETYPE = 'none';
+    public const NONETYPE = 'none';
 
     /**
      * @param $query
